@@ -19,3 +19,7 @@ Static site for Efficient Systems Canada, self-hosted on the NAS (Nginx behind a
 
 `robots.txt` asks crawlers to skip `/teaching/`, and each teaching page carries a `noindex` tag.
 Neither is access control: anyone with the URL can open these pages.
+
+## Serving
+
+Only `public/` is served by Nginx. Anything outside it (this README, `.git/`) is never reachable from the web.
