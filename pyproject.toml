@@ -1,0 +1,6 @@
+[project]
+name = "efficientsystems-site"
+version = "0.1.0"
+description = "Static site builder for efficientsystems.ca"
+requires-python = ">=3.11"
+dependencies = ["jinja2", "markdown", "pyyaml"]

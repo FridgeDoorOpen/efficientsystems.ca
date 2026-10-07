@@ -1,0 +1,7 @@
+# Efficient Systems Canada
+
+> Working notes on industrial context, operations, and AI transformation.
+
+## Pages
+
+- [Industrial context, operations, and AI](https://efficientsystems.ca/): Working notes on how energy operators can make AI reduce complexity instead of adding to it.

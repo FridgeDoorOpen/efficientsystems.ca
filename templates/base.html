@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Efficient Systems Canada{% endblock %}</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-name" href="/">Efficient Systems Canada</a>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <span>efficientsystems.ca</span>
+    {% if page.updated %}<span>Updated {{ page.updated }}</span>{% endif %}
+  </footer>
+</body>
+</html>

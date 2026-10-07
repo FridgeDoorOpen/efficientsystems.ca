@@ -1,0 +1,40 @@
+/* Placeholder styling. The real design pass is its own chunk. */
+:root {
+  --bg: #fbfbf9;
+  --fg: #1b1b1b;
+  --muted: #6b6b6b;
+  --rule: #d9d9d4;
+  --accent: #1f5f8b;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #e6e6e3;
+    --muted: #9a9a96;
+    --rule: #2c2c2a;
+    --accent: #7fb3d9;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: 1.5rem 1rem 3rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.55 var(--sans);
+}
+a { color: var(--accent); }
+.site-header, .site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font: 13px/1.4 var(--mono);
+  color: var(--muted);
+}
+.site-header { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; }
+.site-footer { border-top: 1px solid var(--rule); padding-top: .75rem; margin-top: 3rem; }
+.site-name { color: var(--fg); text-decoration: none; font-weight: 600; }
+h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
