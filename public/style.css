@@ -7,6 +7,12 @@
   --accent: #1f5f8b;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  /* Figure palette: one accent, everything else ink and paper */
+  --fig-ink: #2a2a28;
+  --fig-muted: #7a7a75;
+  --fig-band: #f0f0ec;
+  --fig-asset: #d8d8d2;
+  --fig-accent: #c2410c;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -15,6 +21,11 @@
     --muted: #9a9a96;
     --rule: #2c2c2a;
     --accent: #7fb3d9;
+    --fig-ink: #d6d6d2;
+    --fig-muted: #8f8f8a;
+    --fig-band: #222220;
+    --fig-asset: #3a3a37;
+    --fig-accent: #fb923c;
   }
 }
 * { box-sizing: border-box; }
@@ -38,3 +49,64 @@ a { color: var(--accent); }
 .site-footer { border-top: 1px solid var(--rule); padding-top: .75rem; margin-top: 3rem; }
 .site-name { color: var(--fg); text-decoration: none; font-weight: 600; }
 h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
+
+.site-header nav { display: flex; gap: 1rem; }
+.site-header nav a { color: var(--muted); text-decoration: none; }
+.site-header nav a:hover { color: var(--fg); }
+
+/* Principles */
+.meta { font: 13px/1.4 var(--mono); color: var(--muted); margin: 2rem 0 0; }
+.meta a { color: var(--muted); }
+.principle h1 { margin-top: .5rem; }
+.lede { font-size: 1.1rem; color: var(--muted); }
+.lineage { border-top: 1px solid var(--rule); padding-top: .75rem; margin-top: 2rem; font-size: .95rem; }
+.label { display: block; font: 12px/1.4 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.history { font: 13px/1.5 var(--mono); color: var(--muted); }
+.history summary { cursor: pointer; }
+.principle-list { list-style: none; padding: 0; border-top: 1px solid var(--rule); }
+.principle-list li { display: grid; grid-template-columns: 2.5rem 1fr auto; gap: .75rem; padding: .9rem 0; border-bottom: 1px solid var(--rule); }
+.principle-list .num, .principle-list .ver { font: 13px/1.8 var(--mono); color: var(--muted); }
+.principle-list a { font-weight: 600; text-decoration: none; }
+.principle-list p { margin: .25rem 0 0; color: var(--muted); font-size: .95rem; }
+
+/* Figures: inline SVG, styled here so they follow the theme */
+.figure { margin: 2rem 0; }
+.figure svg { width: 100%; height: auto; display: block; }
+.figure figcaption { font-size: .9rem; color: var(--muted); margin-top: .6rem; border-left: 2px solid var(--fig-accent); padding-left: .6rem; }
+.fig text { font-family: var(--sans); font-size: 13px; fill: var(--fig-ink); }
+.fig .f-small { font-size: 11px; }
+.fig .f-muted { fill: var(--fig-muted); }
+.fig .f-heading { font: 600 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; fill: var(--fig-muted); }
+.fig .f-label { font-weight: 500; }
+.fig .f-band { fill: var(--fig-band); }
+.fig .f-band-alt { fill: transparent; }
+.fig .f-band-label text { font-family: var(--mono); font-weight: 600; fill: var(--fig-muted); }
+.fig .f-band-label .f-small { font-weight: 400; }
+.fig .f-asset { fill: var(--fig-asset); stroke: var(--fig-ink); stroke-width: 1.5; }
+.fig .f-system, .fig .f-process, .fig .f-decision, .fig .f-artifact { fill: var(--bg); stroke: var(--fig-ink); stroke-width: 1.25; }
+.fig .f-artifact-fold { fill: none; stroke: var(--fig-ink); stroke-width: 1.25; }
+.fig .f-role { fill: var(--bg); stroke: var(--fig-ink); stroke-width: 1.5; }
+.fig .f-group { fill: none; stroke: var(--fig-muted); stroke-width: 1; stroke-dasharray: 4 3; }
+.fig .f-flow { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; }
+.fig .f-inferred { stroke-dasharray: 6 4; }
+.fig .f-flow-human { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; stroke-dasharray: 1.5 4; stroke-linecap: round; }
+.fig .f-tie { stroke: var(--fig-muted); stroke-width: 1; }
+.fig .f-break { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; }
+.fig .f-arrowhead { fill: var(--fig-ink); }
+.fig .f-arrowhead-accent { fill: var(--fig-accent); }
+.fig .f-accent-flow { stroke: var(--fig-accent); stroke-width: 2.5; }
+.fig .f-accent-text { fill: var(--fig-accent); font-weight: 600; }
+.fig .f-mono { font-family: var(--mono); }
+.fig .f-cell { stroke: var(--rule); stroke-width: 1; }
+.fig .f-own-ops { fill: var(--fig-band); }
+.fig .f-own-it { fill: var(--bg); }
+.fig .f-own-fin { fill: var(--bg); }
+.fig .f-own-none { fill: var(--bg); }
+.fig .f-hatch { stroke: var(--fig-asset); stroke-width: 2; }
+.fig .f-tag { font: 600 9px var(--mono); fill: var(--fig-muted); letter-spacing: .04em; }
+.fig .f-boundary { stroke: var(--fig-ink); stroke-width: 2; fill: none; }
+.fig .f-accent-thin { stroke: var(--fig-accent); stroke-width: 1; }
+.fig .f-ring-out { fill: none; stroke: var(--fig-muted); stroke-width: 1; stroke-dasharray: 5 4; }
+.fig .f-ring-mid { fill: var(--fig-band); stroke: var(--fig-muted); stroke-width: 1; }
+.fig .f-ring-core { fill: var(--bg); stroke: var(--fig-accent); stroke-width: 2.5; }
+.fig .f-heading.f-accent-text { fill: var(--fig-accent); }

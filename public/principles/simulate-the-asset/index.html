@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulate the asset; don&#39;t assume it. · Principles · Efficient Systems Canada</title>
+  <meta name="description" content="Business plans should rest on how the asset actually behaves, not on its nameplate.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-name" href="/">Efficient Systems Canada</a>
+    <nav>
+      <a href="/principles/">Principles</a>
+      <a href="/legend/">Legend</a>
+    </nav>
+  </header>
+  <main>
+    
+<article class="principle">
+  <p class="meta">
+    <a href="/principles/">Principle 2</a>
+    · v1.0
+    
+  </p>
+  <h1>Simulate the asset; don&#39;t assume it.</h1>
+  <p class="lede">Business plans should rest on how the asset actually behaves, not on its nameplate.</p>
+  <figure class="figure">
+  <svg class="fig" viewBox="0 0 720 410" role="img" aria-labelledby="sta-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="sta-title">The business plan reads the nameplate rating directly, bypassing Levels 2 and 3. The asset's actual behaviour reaches SCADA and the islands of operations context at Level 3, and has no path to the plan.</title>
+  <defs>
+    <marker id="sta-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead"/>
+    </marker>
+    <marker id="sta-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead-accent"/>
+    </marker>
+  </defs>
+
+  <!-- ISA-95 level bands -->
+  <rect class="f-band" x="0" y="10" width="720" height="80"/>
+  <rect class="f-band-alt" x="0" y="90" width="720" height="120"/>
+  <rect class="f-band" x="0" y="210" width="720" height="80"/>
+  <rect class="f-band-alt" x="0" y="290" width="720" height="110"/>
+  <g class="f-band-label">
+    <text x="12" y="34">L4</text><text class="f-small" x="12" y="50">Business</text>
+    <text x="12" y="114">L3</text><text class="f-small" x="12" y="130">Operations</text>
+    <text x="12" y="234">L2</text><text class="f-small" x="12" y="250">Supervisory</text>
+    <text x="12" y="314">L0–1</text><text class="f-small" x="12" y="330">Control and</text><text class="f-small" x="12" y="344">physical asset</text>
+  </g>
+
+  <!-- L4: the plan -->
+  <rect class="f-system" x="470" y="30" width="220" height="40" rx="8"/>
+  <text class="f-label" x="580" y="55" text-anchor="middle">ERP · business plan</text>
+
+  <!-- L3: islands of operations context, carried by people -->
+  <rect class="f-group" x="120" y="104" width="240" height="94" rx="6"/>
+  <text class="f-small f-muted" x="130" y="121">Islands of operations context</text>
+  <rect class="f-system" x="130" y="130" width="66" height="28" rx="6"/>
+  <text class="f-small" x="163" y="148" text-anchor="middle">Schedule</text>
+  <rect class="f-system" x="204" y="130" width="66" height="28" rx="6"/>
+  <text class="f-small" x="237" y="148" text-anchor="middle">Measure</text>
+  <rect class="f-system" x="278" y="130" width="72" height="28" rx="6"/>
+  <text class="f-small" x="314" y="148" text-anchor="middle">Maintain</text>
+  <line class="f-tie" x1="163" y1="158" x2="163" y2="172"/>
+  <line class="f-tie" x1="237" y1="158" x2="237" y2="172"/>
+  <line class="f-tie" x1="314" y1="158" x2="314" y2="172"/>
+  <circle class="f-role" cx="163" cy="180" r="8"/>
+  <circle class="f-role" cx="237" cy="180" r="8"/>
+  <circle class="f-role" cx="314" cy="180" r="8"/>
+  <path class="f-flow-human" d="M171 180H229M245 180H306"/>
+
+  <!-- L2 and L0–1: the real asset and its data -->
+  <rect class="f-system" x="120" y="230" width="240" height="40" rx="8"/>
+  <text class="f-label" x="240" y="255" text-anchor="middle">SCADA · historian</text>
+  <rect class="f-asset" x="120" y="320" width="240" height="48"/>
+  <text class="f-label" x="240" y="349" text-anchor="middle">Compressor station</text>
+
+  <line class="f-flow" x1="240" y1="320" x2="240" y2="272" marker-end="url(#sta-arrow)"/>
+  <line class="f-flow" x1="240" y1="230" x2="240" y2="200" marker-end="url(#sta-arrow)"/>
+  <text class="f-small f-muted" x="250" y="300">actual behaviour</text>
+
+  <!-- No path from L3 to the plan -->
+  <line class="f-flow" x1="240" y1="104" x2="240" y2="84"/>
+  <path class="f-break" d="M232 82L248 76M232 76L248 70"/>
+  <text class="f-small f-muted" x="256" y="78">no path to the plan</text>
+
+  <!-- Nameplate, and the bypass (the point) -->
+  <path class="f-artifact" d="M470 320H676L690 334V368H470Z"/>
+  <path class="f-artifact-fold" d="M676 320V334H690"/>
+  <text class="f-label" x="580" y="349" text-anchor="middle">Nameplate rating</text>
+  <line class="f-tie" x1="360" y1="344" x2="470" y2="344"/>
+  <text class="f-small f-muted" x="415" y="337" text-anchor="middle">rated at</text>
+
+  <line class="f-accent-flow" x1="580" y1="320" x2="580" y2="73" marker-end="url(#sta-arrow-accent)"/>
+  <text class="f-accent-text" x="592" y="180">assumed</text>
+  <text class="f-accent-text" x="592" y="196">performance</text>
+  <text class="f-small f-muted" x="592" y="214">bypasses L2–L3</text>
+</svg>
+
+  <figcaption>Today the plan reads the nameplate. The asset&#39;s actual behaviour reaches Level 3, where people carry it between islands of context, and stops there.</figcaption>
+</figure>
+  <p>Energy operators are mature at the bottom of the ISA-95 stack: field devices, control systems, and SCADA are well built. The operations layer above them exists as functions, such as scheduling, measurement, and maintenance, but not as a coherent system. Its context lives in separate tools, spreadsheets, and the heads of experienced people.</p>
+<p>So the business layer is bolted almost directly to the bottom. The ERP and the plans built on it consume what the asset is rated to do, not what it does. Commercial strategies built that way model an imagined asset. Business-side AI added on top doesn't fix this; it produces a more fluent forecast from the same assumptions, automating the wrong model faster.</p>
+  <figure class="figure">
+  <svg class="fig" viewBox="0 0 720 420" role="img" aria-labelledby="r2r-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="r2r-title">Plans flow down as static artifacts: investor guidance, an annual budget, contracted capacity and an operating plan, which is executed on the pipeline system. Records climb back up from the asset: real-time data in SCADA and the historian, then a daily report, a monthly settlement, quarterly results and an annual report. Each step up adds delay, so a plan that no longer matches the asset can go unnoticed for up to a year.</title>
+  <defs><marker id="r2r-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-arrowhead"/></marker><marker id="r2r-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-arrowhead-accent"/></marker></defs>
+  <text class="f-small f-label" x="12" y="74">Investors</text>
+  <line class="f-tie" x1="12" y1="105" x2="640" y2="105"/>
+  <text class="f-small f-label" x="12" y="144">Finance</text>
+  <line class="f-tie" x1="12" y1="175" x2="640" y2="175"/>
+  <text class="f-small f-label" x="12" y="214">Commercial</text>
+  <line class="f-tie" x1="12" y1="245" x2="640" y2="245"/>
+  <text class="f-small f-label" x="12" y="284">Operations</text>
+  <line class="f-tie" x1="12" y1="315" x2="640" y2="315"/>
+  <text class="f-small f-label" x="12" y="364">Asset</text>
+  <text class="f-small f-muted" x="12" y="88">outside</text>
+  <text class="f-heading" x="215" y="26" text-anchor="middle">Plans · made once, flow down</text>
+  <text class="f-heading" x="545" y="26" text-anchor="middle">Records · climb back up</text>
+  <path class="f-artifact" d="M140 56H278L290 68V84H140Z"/>
+  <path class="f-artifact-fold" d="M278 56V68H290"/>
+  <text class="f-small" x="215.0" y="74" text-anchor="middle">Investor guidance</text>
+  <path class="f-artifact" d="M140 126H278L290 138V154H140Z"/>
+  <path class="f-artifact-fold" d="M278 126V138H290"/>
+  <text class="f-small" x="215.0" y="144" text-anchor="middle">Annual budget</text>
+  <path class="f-artifact" d="M140 196H278L290 208V224H140Z"/>
+  <path class="f-artifact-fold" d="M278 196V208H290"/>
+  <text class="f-small" x="215.0" y="214" text-anchor="middle">Contracted capacity</text>
+  <path class="f-artifact" d="M140 266H278L290 278V294H140Z"/>
+  <path class="f-artifact-fold" d="M278 266V278H290"/>
+  <text class="f-small" x="215.0" y="284" text-anchor="middle">Operating plan</text>
+  <line class="f-flow" x1="215" y1="84" x2="215" y2="124" marker-end="url(#r2r-arrow)"/>
+  <line class="f-flow" x1="215" y1="154" x2="215" y2="194" marker-end="url(#r2r-arrow)"/>
+  <line class="f-flow" x1="215" y1="224" x2="215" y2="264" marker-end="url(#r2r-arrow)"/>
+  <rect class="f-asset" x="280" y="342" width="160" height="36"/>
+  <text class="f-label" x="360" y="365" text-anchor="middle">Pipeline system</text>
+  <path class="f-flow" d="M215 294V360H278" marker-end="url(#r2r-arrow)"/>
+  <text class="f-small f-muted" x="222" y="330">executed on</text>
+  <rect class="f-system" x="470" y="347" width="150" height="26" rx="6"/>
+  <text class="f-small" x="545" y="364" text-anchor="middle">SCADA · historian</text>
+  <line class="f-flow" x1="440" y1="360" x2="468" y2="360" marker-end="url(#r2r-arrow)"/>
+  <path class="f-artifact" d="M470 266H608L620 278V294H470Z"/>
+  <path class="f-artifact-fold" d="M608 266V278H620"/>
+  <text class="f-small" x="545.0" y="284" text-anchor="middle">Daily report</text>
+  <path class="f-artifact" d="M470 196H608L620 208V224H470Z"/>
+  <path class="f-artifact-fold" d="M608 196V208H620"/>
+  <text class="f-small" x="545.0" y="214" text-anchor="middle">Monthly settlement</text>
+  <path class="f-artifact" d="M470 126H608L620 138V154H470Z"/>
+  <path class="f-artifact-fold" d="M608 126V138H620"/>
+  <text class="f-small" x="545.0" y="144" text-anchor="middle">Quarterly results</text>
+  <path class="f-artifact" d="M470 56H608L620 68V84H470Z"/>
+  <path class="f-artifact-fold" d="M608 56V68H620"/>
+  <text class="f-small" x="545.0" y="74" text-anchor="middle">Annual report</text>
+  <line class="f-flow" x1="545" y1="347" x2="545" y2="296" marker-end="url(#r2r-arrow)"/>
+  <text class="f-small f-muted" x="551" y="316.5">daily</text>
+  <line class="f-flow" x1="545" y1="266" x2="545" y2="226" marker-end="url(#r2r-arrow)"/>
+  <text class="f-small f-muted" x="551" y="241.0">monthly</text>
+  <line class="f-flow" x1="545" y1="196" x2="545" y2="156" marker-end="url(#r2r-arrow)"/>
+  <text class="f-small f-muted" x="551" y="171.0">quarterly</text>
+  <line class="f-flow" x1="545" y1="126" x2="545" y2="86" marker-end="url(#r2r-arrow)"/>
+  <text class="f-small f-muted" x="551" y="101.0">yearly</text>
+  <path class="f-accent-flow" d="M660 372V62" marker-end="url(#r2r-arrow-accent)" fill="none"/>
+  <text class="f-accent-text" x="676" y="217" text-anchor="middle" transform="rotate(-90 676 217)">Record to report: real time to a year</text>
+</svg>
+
+  <figcaption>Plans flow down as static artifacts and are executed on the asset. Records climb back up, slowing at every step. The longer the climb from record to report, the longer a plan that no longer matches the asset goes unnoticed.</figcaption>
+</figure>
+  
+  <p class="lineage"><span class="label">Where it comes from</span> ISA-95 Part 3, Manufacturing Operations Management, as the vocabulary for the missing layer.</p>
+  
+  <details class="history">
+    <summary>History</summary>
+    <ul>
+      <li>1.0 · 2026-10-07 · First written.</li>
+    </ul>
+  </details>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>efficientsystems.ca</span>
+    
+  </footer>
+</body>
+</html>

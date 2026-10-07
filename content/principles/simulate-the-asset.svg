@@ -1,0 +1,71 @@
+<svg class="fig" viewBox="0 0 720 410" role="img" aria-labelledby="sta-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="sta-title">The business plan reads the nameplate rating directly, bypassing Levels 2 and 3. The asset's actual behaviour reaches SCADA and the islands of operations context at Level 3, and has no path to the plan.</title>
+  <defs>
+    <marker id="sta-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead"/>
+    </marker>
+    <marker id="sta-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead-accent"/>
+    </marker>
+  </defs>
+
+  <!-- ISA-95 level bands -->
+  <rect class="f-band" x="0" y="10" width="720" height="80"/>
+  <rect class="f-band-alt" x="0" y="90" width="720" height="120"/>
+  <rect class="f-band" x="0" y="210" width="720" height="80"/>
+  <rect class="f-band-alt" x="0" y="290" width="720" height="110"/>
+  <g class="f-band-label">
+    <text x="12" y="34">L4</text><text class="f-small" x="12" y="50">Business</text>
+    <text x="12" y="114">L3</text><text class="f-small" x="12" y="130">Operations</text>
+    <text x="12" y="234">L2</text><text class="f-small" x="12" y="250">Supervisory</text>
+    <text x="12" y="314">L0–1</text><text class="f-small" x="12" y="330">Control and</text><text class="f-small" x="12" y="344">physical asset</text>
+  </g>
+
+  <!-- L4: the plan -->
+  <rect class="f-system" x="470" y="30" width="220" height="40" rx="8"/>
+  <text class="f-label" x="580" y="55" text-anchor="middle">ERP · business plan</text>
+
+  <!-- L3: islands of operations context, carried by people -->
+  <rect class="f-group" x="120" y="104" width="240" height="94" rx="6"/>
+  <text class="f-small f-muted" x="130" y="121">Islands of operations context</text>
+  <rect class="f-system" x="130" y="130" width="66" height="28" rx="6"/>
+  <text class="f-small" x="163" y="148" text-anchor="middle">Schedule</text>
+  <rect class="f-system" x="204" y="130" width="66" height="28" rx="6"/>
+  <text class="f-small" x="237" y="148" text-anchor="middle">Measure</text>
+  <rect class="f-system" x="278" y="130" width="72" height="28" rx="6"/>
+  <text class="f-small" x="314" y="148" text-anchor="middle">Maintain</text>
+  <line class="f-tie" x1="163" y1="158" x2="163" y2="172"/>
+  <line class="f-tie" x1="237" y1="158" x2="237" y2="172"/>
+  <line class="f-tie" x1="314" y1="158" x2="314" y2="172"/>
+  <circle class="f-role" cx="163" cy="180" r="8"/>
+  <circle class="f-role" cx="237" cy="180" r="8"/>
+  <circle class="f-role" cx="314" cy="180" r="8"/>
+  <path class="f-flow-human" d="M171 180H229M245 180H306"/>
+
+  <!-- L2 and L0–1: the real asset and its data -->
+  <rect class="f-system" x="120" y="230" width="240" height="40" rx="8"/>
+  <text class="f-label" x="240" y="255" text-anchor="middle">SCADA · historian</text>
+  <rect class="f-asset" x="120" y="320" width="240" height="48"/>
+  <text class="f-label" x="240" y="349" text-anchor="middle">Compressor station</text>
+
+  <line class="f-flow" x1="240" y1="320" x2="240" y2="272" marker-end="url(#sta-arrow)"/>
+  <line class="f-flow" x1="240" y1="230" x2="240" y2="200" marker-end="url(#sta-arrow)"/>
+  <text class="f-small f-muted" x="250" y="300">actual behaviour</text>
+
+  <!-- No path from L3 to the plan -->
+  <line class="f-flow" x1="240" y1="104" x2="240" y2="84"/>
+  <path class="f-break" d="M232 82L248 76M232 76L248 70"/>
+  <text class="f-small f-muted" x="256" y="78">no path to the plan</text>
+
+  <!-- Nameplate, and the bypass (the point) -->
+  <path class="f-artifact" d="M470 320H676L690 334V368H470Z"/>
+  <path class="f-artifact-fold" d="M676 320V334H690"/>
+  <text class="f-label" x="580" y="349" text-anchor="middle">Nameplate rating</text>
+  <line class="f-tie" x1="360" y1="344" x2="470" y2="344"/>
+  <text class="f-small f-muted" x="415" y="337" text-anchor="middle">rated at</text>
+
+  <line class="f-accent-flow" x1="580" y1="320" x2="580" y2="73" marker-end="url(#sta-arrow-accent)"/>
+  <text class="f-accent-text" x="592" y="180">assumed</text>
+  <text class="f-accent-text" x="592" y="196">performance</text>
+  <text class="f-small f-muted" x="592" y="214">bypasses L2–L3</text>
+</svg>

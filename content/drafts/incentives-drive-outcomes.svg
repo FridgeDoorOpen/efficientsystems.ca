@@ -1,0 +1,140 @@
+<svg class="fig" viewBox="0 0 720 452" role="img" aria-labelledby="ido-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="ido-title">RAMI 4.0 layers by hierarchy level, with each cell labelled by the executive line that owns it. Operations (COO) owns the field and control levels, the physical station equipment, and the functional and business work at the station and work-centre levels. IT (CIO) owns SCADA, the historian, networks and data platforms from the station level up. Finance (CFO) owns the enterprise business and functional layers.</title>
+  <defs><pattern id="ido-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="f-hatch" x1="0" y1="0" x2="0" y2="6"/></pattern></defs>
+  <text class="f-heading" x="12" y="30">Layer</text>
+  <text class="f-heading" x="12" y="46">↓ · Level →</text>
+  <text class="f-small f-label" x="171.0" y="30" text-anchor="middle">Field device</text>
+  <text class="f-small f-mono f-muted" x="171.0" y="46" text-anchor="middle">L0–1</text>
+  <text class="f-small f-label" x="289.0" y="30" text-anchor="middle">Control device</text>
+  <text class="f-small f-mono f-muted" x="289.0" y="46" text-anchor="middle">L1</text>
+  <text class="f-small f-accent-text" x="407.0" y="30" text-anchor="middle">Station</text>
+  <text class="f-small f-mono f-accent-text" x="407.0" y="46" text-anchor="middle">L2</text>
+  <text class="f-small f-accent-text" x="525.0" y="30" text-anchor="middle">Work centre</text>
+  <text class="f-small f-mono f-accent-text" x="525.0" y="46" text-anchor="middle">L3</text>
+  <text class="f-small f-label" x="643.0" y="30" text-anchor="middle">Enterprise</text>
+  <text class="f-small f-mono f-muted" x="643.0" y="46" text-anchor="middle">L4</text>
+  <text class="f-small f-label" x="12" y="92.0">Business</text>
+  <rect class="f-cell f-own-none" x="112" y="62" width="118" height="52"/>
+  <text class="f-small f-muted" x="171.0" y="92.0" text-anchor="middle">—</text>
+  <rect class="f-cell f-own-none" x="230" y="62" width="118" height="52"/>
+  <text class="f-small f-muted" x="289.0" y="92.0" text-anchor="middle">—</text>
+  <rect class="f-cell f-own-none" x="348" y="62" width="118" height="52"/>
+  <text class="f-small f-muted" x="407.0" y="92.0" text-anchor="middle">—</text>
+  <rect class="f-cell f-own-ops" x="466" y="62" width="118" height="52"/>
+  <text class="f-tag" x="472" y="75">COO</text>
+  <text class="f-small" x="525.0" y="90" text-anchor="middle">Commercial</text>
+  <text class="f-small" x="525.0" y="103" text-anchor="middle">operations</text>
+  <rect class="f-cell f-own-fin" x="584" y="62" width="118" height="52"/>
+  <rect x="584" y="62" width="118" height="52" fill="url(#ido-hatch)"/>
+  <text class="f-tag" x="590" y="75">CFO</text>
+  <text class="f-small" x="643.0" y="95" text-anchor="middle">Finance</text>
+  <text class="f-small f-label" x="12" y="144.0">Functional</text>
+  <rect class="f-cell f-own-ops" x="112" y="114" width="118" height="52"/>
+  <text class="f-tag" x="118" y="127">COO</text>
+  <text class="f-small" x="171.0" y="147" text-anchor="middle">Protection</text>
+  <rect class="f-cell f-own-ops" x="230" y="114" width="118" height="52"/>
+  <text class="f-tag" x="236" y="127">COO</text>
+  <text class="f-small" x="289.0" y="147" text-anchor="middle">Control logic</text>
+  <rect class="f-cell f-own-ops" x="348" y="114" width="118" height="52"/>
+  <text class="f-tag" x="354" y="127">COO</text>
+  <text class="f-small" x="407.0" y="147" text-anchor="middle">Gas control</text>
+  <rect class="f-cell f-own-ops" x="466" y="114" width="118" height="52"/>
+  <text class="f-tag" x="472" y="127">COO</text>
+  <text class="f-small" x="525.0" y="142" text-anchor="middle">Scheduling,</text>
+  <text class="f-small" x="525.0" y="155" text-anchor="middle">outages</text>
+  <rect class="f-cell f-own-fin" x="584" y="114" width="118" height="52"/>
+  <rect x="584" y="114" width="118" height="52" fill="url(#ido-hatch)"/>
+  <text class="f-tag" x="590" y="127">CFO</text>
+  <text class="f-small" x="643.0" y="142" text-anchor="middle">Planning,</text>
+  <text class="f-small" x="643.0" y="155" text-anchor="middle">budgets</text>
+  <text class="f-small f-label" x="12" y="196.0">Information</text>
+  <rect class="f-cell f-own-ops" x="112" y="166" width="118" height="52"/>
+  <text class="f-tag" x="118" y="179">COO</text>
+  <text class="f-small" x="171.0" y="199" text-anchor="middle">Device data</text>
+  <rect class="f-cell f-own-ops" x="230" y="166" width="118" height="52"/>
+  <text class="f-tag" x="236" y="179">COO</text>
+  <text class="f-small" x="289.0" y="194" text-anchor="middle">Controller</text>
+  <text class="f-small" x="289.0" y="207" text-anchor="middle">tags</text>
+  <rect class="f-cell f-own-it" x="348" y="166" width="118" height="52"/>
+  <text class="f-tag" x="354" y="179">CIO</text>
+  <text class="f-small" x="407.0" y="194" text-anchor="middle">SCADA,</text>
+  <text class="f-small" x="407.0" y="207" text-anchor="middle">historian</text>
+  <rect class="f-cell f-own-it" x="466" y="166" width="118" height="52"/>
+  <text class="f-tag" x="472" y="179">CIO</text>
+  <text class="f-small" x="525.0" y="194" text-anchor="middle">Data platform,</text>
+  <text class="f-small" x="525.0" y="207" text-anchor="middle">spreadsheets</text>
+  <rect class="f-cell f-own-it" x="584" y="166" width="118" height="52"/>
+  <text class="f-tag" x="590" y="179">CIO</text>
+  <text class="f-small" x="643.0" y="194" text-anchor="middle">ERP data,</text>
+  <text class="f-small" x="643.0" y="207" text-anchor="middle">reporting</text>
+  <text class="f-small f-label" x="12" y="248.0">Communication</text>
+  <rect class="f-cell f-own-ops" x="112" y="218" width="118" height="52"/>
+  <text class="f-tag" x="118" y="231">COO</text>
+  <text class="f-small" x="171.0" y="251" text-anchor="middle">Fieldbus</text>
+  <rect class="f-cell f-own-ops" x="230" y="218" width="118" height="52"/>
+  <text class="f-tag" x="236" y="231">COO</text>
+  <text class="f-small" x="289.0" y="246" text-anchor="middle">Control</text>
+  <text class="f-small" x="289.0" y="259" text-anchor="middle">network</text>
+  <rect class="f-cell f-own-it" x="348" y="218" width="118" height="52"/>
+  <text class="f-tag" x="354" y="231">CIO</text>
+  <text class="f-small" x="407.0" y="246" text-anchor="middle">SCADA</text>
+  <text class="f-small" x="407.0" y="259" text-anchor="middle">network</text>
+  <rect class="f-cell f-own-it" x="466" y="218" width="118" height="52"/>
+  <text class="f-tag" x="472" y="231">CIO</text>
+  <text class="f-small" x="525.0" y="246" text-anchor="middle">Corporate</text>
+  <text class="f-small" x="525.0" y="259" text-anchor="middle">network</text>
+  <rect class="f-cell f-own-it" x="584" y="218" width="118" height="52"/>
+  <text class="f-tag" x="590" y="231">CIO</text>
+  <text class="f-small" x="643.0" y="246" text-anchor="middle">Corporate</text>
+  <text class="f-small" x="643.0" y="259" text-anchor="middle">network, cloud</text>
+  <text class="f-small f-label" x="12" y="300.0">Integration</text>
+  <rect class="f-cell f-own-ops" x="112" y="270" width="118" height="52"/>
+  <text class="f-tag" x="118" y="283">COO</text>
+  <text class="f-small" x="171.0" y="303" text-anchor="middle">I/O</text>
+  <rect class="f-cell f-own-ops" x="230" y="270" width="118" height="52"/>
+  <text class="f-tag" x="236" y="283">COO</text>
+  <text class="f-small" x="289.0" y="303" text-anchor="middle">RTU I/O</text>
+  <rect class="f-cell f-own-it" x="348" y="270" width="118" height="52"/>
+  <text class="f-tag" x="354" y="283">CIO</text>
+  <text class="f-small" x="407.0" y="298" text-anchor="middle">SCADA</text>
+  <text class="f-small" x="407.0" y="311" text-anchor="middle">interfaces</text>
+  <rect class="f-cell f-own-it" x="466" y="270" width="118" height="52"/>
+  <text class="f-tag" x="472" y="283">CIO</text>
+  <text class="f-small" x="525.0" y="298" text-anchor="middle">Interfaces,</text>
+  <text class="f-small" x="525.0" y="311" text-anchor="middle">ETL</text>
+  <rect class="f-cell f-own-it" x="584" y="270" width="118" height="52"/>
+  <text class="f-tag" x="590" y="283">CIO</text>
+  <text class="f-small" x="643.0" y="298" text-anchor="middle">Integration</text>
+  <text class="f-small" x="643.0" y="311" text-anchor="middle">platform</text>
+  <text class="f-small f-label" x="12" y="352.0">Asset</text>
+  <rect class="f-cell f-own-ops" x="112" y="322" width="118" height="52"/>
+  <text class="f-tag" x="118" y="335">COO</text>
+  <text class="f-small" x="171.0" y="350" text-anchor="middle">Sensors,</text>
+  <text class="f-small" x="171.0" y="363" text-anchor="middle">valves</text>
+  <rect class="f-cell f-own-ops" x="230" y="322" width="118" height="52"/>
+  <text class="f-tag" x="236" y="335">COO</text>
+  <text class="f-small" x="289.0" y="355" text-anchor="middle">PLCs, RTUs</text>
+  <rect class="f-cell f-own-ops" x="348" y="322" width="118" height="52"/>
+  <text class="f-tag" x="354" y="335">COO</text>
+  <text class="f-small" x="407.0" y="350" text-anchor="middle">Station</text>
+  <text class="f-small" x="407.0" y="363" text-anchor="middle">equipment</text>
+  <rect class="f-cell f-own-it" x="466" y="322" width="118" height="52"/>
+  <text class="f-tag" x="472" y="335">CIO</text>
+  <text class="f-small" x="525.0" y="355" text-anchor="middle">Servers</text>
+  <rect class="f-cell f-own-it" x="584" y="322" width="118" height="52"/>
+  <text class="f-tag" x="590" y="335">CIO</text>
+  <text class="f-small" x="643.0" y="350" text-anchor="middle">Data centre,</text>
+  <text class="f-small" x="643.0" y="363" text-anchor="middle">cloud</text>
+  <path class="f-boundary" d="M348 166V322H466V374"/>
+  <path class="f-boundary" d="M584 62V166H702"/>
+  <path class="f-accent-flow" d="M348 166H584"/>
+  <text class="f-accent-text" x="112" y="412">At L2 and L3, the work (above the orange line) reports to operations,</text>
+  <text class="f-accent-text" x="112" y="428">and the systems it runs on (below it) report to IT.</text>
+  <rect class="f-cell f-own-ops" x="112" y="440" width="14" height="14"/>
+  <text class="f-small" x="132" y="451">COO · Operations</text>
+  <rect class="f-cell f-own-it" x="252" y="440" width="14" height="14"/>
+  <text class="f-small" x="272" y="451">CIO · IT</text>
+  <rect class="f-cell f-own-fin" x="352" y="440" width="14" height="14"/>
+  <rect x="352" y="440" width="14" height="14" fill="url(#ido-hatch)"/>
+  <text class="f-small" x="372" y="451">CFO · Finance</text>
+</svg>

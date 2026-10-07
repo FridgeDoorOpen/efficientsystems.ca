@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legend · Efficient Systems Canada</title>
+  <meta name="description" content="The visual grammar used in every ESC diagram, from principle figures to the context map.">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-name" href="/">Efficient Systems Canada</a>
+    <nav>
+      <a href="/principles/">Principles</a>
+      <a href="/legend/">Legend</a>
+    </nav>
+  </header>
+  <main>
+    
+<article>
+  <h1>Legend</h1>
+  <p>Every diagram on this site is drawn from the same small set of parts, so you learn them once and read them everywhere. The accent colour marks the point of a diagram and is used for nothing else.</p>
+<p>There are two frames. The ISA-95 levels stack the operation from field devices up to the enterprise. The RAMI 4.0 grid adds a second axis across them, the architecture layers from asset to business, so that something like the information layer can be seen running through every level rather than sitting on top.</p>
+  <figure class="figure">
+  <svg class="fig" viewBox="0 0 720 476" role="img" aria-labelledby="lg-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="lg-title">Legend: shapes for asset, system, role, process, decision, artifact and group; lines for data flow, inferred flow, context carried by people, association and no path; the accent colour marks the point; horizontal bands are ISA-95 levels; a grid of RAMI 4.0 layers by hierarchy level is the second frame.</title>
+  <defs>
+    <marker id="lg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead"/>
+    </marker>
+    <marker id="lg-arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="f-arrowhead-accent"/>
+    </marker>
+  </defs>
+
+  <!-- Column 1: things -->
+  <text class="f-heading" x="20" y="28">Things</text>
+
+  <rect class="f-asset" x="20" y="48" width="72" height="34"/>
+  <text class="f-label" x="110" y="62">Asset</text>
+  <text class="f-small f-muted" x="110" y="78">Physical equipment. Square corners, filled.</text>
+
+  <rect class="f-system" x="20" y="100" width="72" height="34" rx="8"/>
+  <text class="f-label" x="110" y="114">System</text>
+  <text class="f-small f-muted" x="110" y="130">Software or platform. Rounded, open.</text>
+
+  <circle class="f-role" cx="56" cy="169" r="12"/>
+  <text class="f-label" x="110" y="166">Role</text>
+  <text class="f-small f-muted" x="110" y="182">A person or team, by role.</text>
+
+  <path class="f-process" d="M20 204H78L92 221L78 238H20L34 221Z"/>
+  <text class="f-label" x="110" y="218">Process</text>
+  <text class="f-small f-muted" x="110" y="234">How work moves.</text>
+
+  <path class="f-decision" d="M56 254L76 273L56 292L36 273Z"/>
+  <text class="f-label" x="110" y="270">Decision</text>
+  <text class="f-small f-muted" x="110" y="286">A judgment someone actually makes.</text>
+
+  <path class="f-artifact" d="M20 308H80L92 320V342H20Z"/>
+  <path class="f-artifact-fold" d="M80 308V320H92"/>
+  <text class="f-label" x="110" y="322">Artifact</text>
+  <text class="f-small f-muted" x="110" y="338">A form, template, rating or document.</text>
+
+  <rect class="f-group" x="20" y="360" width="72" height="34" rx="6"/>
+  <text class="f-label" x="110" y="374">Group</text>
+  <text class="f-small f-muted" x="110" y="390">Things read together as one.</text>
+
+  <!-- Column 2: lines, accent, bands -->
+  <text class="f-heading" x="390" y="28">Lines</text>
+
+  <line class="f-flow" x1="390" y1="65" x2="462" y2="65" marker-end="url(#lg-arrow)"/>
+  <text class="f-label" x="480" y="62">Data flow</text>
+  <text class="f-small f-muted" x="480" y="78">Documented.</text>
+
+  <line class="f-flow f-inferred" x1="390" y1="117" x2="462" y2="117" marker-end="url(#lg-arrow)"/>
+  <text class="f-label" x="480" y="114">Inferred flow</text>
+  <text class="f-small f-muted" x="480" y="130">Believed, not documented.</text>
+
+  <path class="f-flow-human" d="M390 169H462"/>
+  <text class="f-label" x="480" y="166">Carried by people</text>
+  <text class="f-small f-muted" x="480" y="182">Meetings, email, spreadsheets.</text>
+
+  <line class="f-tie" x1="390" y1="221" x2="462" y2="221"/>
+  <text class="f-label" x="480" y="218">Association</text>
+  <text class="f-small f-muted" x="480" y="234">Belongs to, describes.</text>
+
+  <line class="f-flow" x1="390" y1="273" x2="418" y2="273"/>
+  <path class="f-break" d="M422 281L432 265M432 281L442 265"/>
+  <text class="f-label" x="480" y="270">No path</text>
+  <text class="f-small f-muted" x="480" y="286">Where a flow should continue, and doesn't.</text>
+
+  <text class="f-heading" x="390" y="324">Emphasis and frame</text>
+  <line class="f-accent-flow" x1="390" y1="345" x2="462" y2="345" marker-end="url(#lg-arrow-accent)"/>
+  <text class="f-accent-text" x="480" y="342">The point</text>
+  <text class="f-small f-muted" x="480" y="358">The one thing the diagram argues.</text>
+
+  <rect class="f-band" x="390" y="372" width="72" height="22"/>
+  <rect class="f-band-alt" x="390" y="394" width="72" height="22"/>
+  <text class="f-label" x="480" y="390">ISA-95 levels</text>
+  <text class="f-small f-muted" x="480" y="406">L0–1 at the bottom, L4 at the top.</text>
+  <rect class="f-cell f-own-none" x="390.0" y="430.0" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="408.0" y="430.0" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="426.0" y="430.0" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="444.0" y="430.0" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="390.0" y="441.3" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="408.0" y="441.3" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="426.0" y="441.3" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="444.0" y="441.3" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="390.0" y="452.7" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="408.0" y="452.7" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="426.0" y="452.7" width="18.0" height="11.3"/>
+  <rect class="f-cell f-own-none" x="444.0" y="452.7" width="18.0" height="11.3"/>
+  <text class="f-label" x="480" y="444">RAMI 4.0 grid</text>
+  <text class="f-small f-muted" x="480" y="460">Layers as rows, hierarchy levels as columns.</text>
+</svg>
+
+  <figcaption>Seven kinds of thing, five kinds of line, one accent, and two frames to draw them on.</figcaption>
+</figure>
+</article>
+
+  </main>
+  <footer class="site-footer">
+    <span>efficientsystems.ca</span>
+    <span>Updated 2026-10-07</span>
+  </footer>
+</body>
+</html>

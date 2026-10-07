@@ -5,3 +5,10 @@
 ## Pages
 
 - [Industrial context, operations, and AI](https://efficientsystems.ca/): Working notes on how energy operators can make AI reduce complexity instead of adding to it.
+- [Legend](https://efficientsystems.ca/legend/): The visual grammar used in every ESC diagram, from principle figures to the context map.
+- [Architectures must be traversable by AI agents, and navigable by humans.](https://efficientsystems.ca/principles/agent-traversable/): If an agent can't walk the structure of a system, it can't reason about it. If a person can't find their way through it, they won't trust what the agent says.
+- [Simulate the asset; don't assume it.](https://efficientsystems.ca/principles/simulate-the-asset/): Business plans should rest on how the asset actually behaves, not on its nameplate.
+- [Incentives drive outcomes.](https://efficientsystems.ca/principles/incentives-drive-outcomes/): Systems mirror the org chart that builds them, and the org chart mirrors what each executive is measured on.
+- [Know the fence before you move it.](https://efficientsystems.ca/principles/know-the-fence/): Do process archaeology before redesign. Find the decision a process serves before you change or automate it.
+- [Every change traces to a capability.](https://efficientsystems.ca/principles/every-change-traces-to-a-capability/): No change for its own sake. Each initiative names the capability it moves, from what maturity to what, on which asset.
+- [Principles](https://efficientsystems.ca/principles/): The working principles behind ESC's approach to industrial context and AI transformation, numbered and versioned.

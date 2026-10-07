@@ -1,0 +1,42 @@
+<svg class="fig" viewBox="0 0 600 440" role="img" aria-labelledby="sos-title" xmlns="http://www.w3.org/2000/svg">
+  <title id="sos-title">Three nested rings around any asset-intensive business. At the core, the machine: physical assets that behave the objective · described once and can be described once. Around it, people, process and technology: roles, systems and processes that interpret the machine, where many views are expected. Outside, external entities that exchange data with the business but are not under its control.</title>
+  <defs><marker id="sos-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="f-arrowhead"/></marker></defs>
+  <ellipse class="f-ring-out" cx="300" cy="225" rx="285" ry="205"/>
+  <ellipse class="f-ring-mid" cx="300" cy="225" rx="215" ry="162"/>
+  <ellipse class="f-ring-core" cx="300" cy="225" rx="128" ry="80"/>
+  <text class="f-heading" x="300" y="52" text-anchor="middle">Outside · never controlled</text>
+  <text class="f-heading" x="300" y="112" text-anchor="middle">People, process, technology · many views</text>
+  <text class="f-heading f-accent-text" x="300" y="176" text-anchor="middle">The machine</text>
+  <rect class="f-asset" x="236" y="192" width="30" height="22"/>
+  <rect class="f-asset" x="276" y="192" width="30" height="22"/>
+  <rect class="f-asset" x="316" y="192" width="30" height="22"/>
+  <rect class="f-asset" x="256" y="226" width="30" height="22"/>
+  <rect class="f-asset" x="296" y="226" width="30" height="22"/>
+  <rect class="f-asset" x="336" y="226" width="30" height="22"/>
+  <path class="f-tie" d="M266 203H276M306 203H316M286 237H296M326 237H336" fill="none"/>
+  <text class="f-small f-muted" x="300" y="276" text-anchor="middle">objective · described once</text>
+  <rect class="f-system" x="280.0" y="119" width="40" height="18" rx="5"/>
+  <circle class="f-role" cx="190" cy="146" r="7"/>
+  <path class="f-process" d="M392.0 137H430.0L438.0 146L430.0 155H392.0L399.0 146Z"/>
+  <rect class="f-system" x="112.0" y="216" width="40" height="18" rx="5"/>
+  <circle class="f-role" cx="468" cy="212" r="7"/>
+  <circle class="f-role" cx="176" cy="312" r="7"/>
+  <path class="f-process" d="M277.0 343H315.0L323.0 352L315.0 361H277.0L284.0 352Z"/>
+  <rect class="f-system" x="405.0" y="307" width="40" height="18" rx="5"/>
+  <circle class="f-role" cx="118" cy="272" r="7"/>
+  <rect class="f-system" x="462.0" y="253" width="40" height="18" rx="5"/>
+  <path class="f-flow-human" d="M183 150Q140 180 132 216M124 270Q140 300 170 308M468 220Q478 240 480 252" fill="none"/>
+  <line class="f-flow" x1="300" y1="190" x2="300" y2="140" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow" x1="352" y1="248" x2="410" y2="304" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow f-inferred" x1="240" y1="250" x2="186" y2="304" marker-end="url(#sos-arrow)"/>
+  <rect class="f-group" x="45.0" y="120" width="54" height="20" rx="5"/>
+  <rect class="f-group" x="501.0" y="114" width="54" height="20" rx="5"/>
+  <rect class="f-group" x="43.0" y="330" width="54" height="20" rx="5"/>
+  <rect class="f-group" x="503.0" y="334" width="54" height="20" rx="5"/>
+  <rect class="f-group" x="270.0" y="405" width="60" height="20" rx="5"/>
+  <line class="f-flow" x1="183" y1="142" x2="101" y2="133" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow" x1="438" y1="143" x2="499" y2="128" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow" x1="277" y1="352" x2="99" y2="342" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow" x1="445" y1="322" x2="501" y2="340" marker-end="url(#sos-arrow)"/>
+  <line class="f-flow f-inferred" x1="300" y1="361" x2="300" y2="403" marker-end="url(#sos-arrow)"/>
+</svg>
