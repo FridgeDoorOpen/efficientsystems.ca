@@ -66,15 +66,47 @@ def _edge_label(fig, pts, text):
 
 
 def draw_section(view):
-    """A section through a building: floors stacked, rooms as containers."""
+    """A section through a building: floors stacked, rooms as containers,
+    devices inside them, and the physical links between devices."""
     meta = view["view"]
     lay = section_layout(view)
     fig = Figure(meta["id"], lay.width, lay.height, title=meta["title"])
     for i, b in enumerate(lay.bands):
         fig.band(0, b["y"], lay.width, b["h"], alt=i % 2 == 1)
         fig.band_label(12, b["y"] + 24, b["code"], b["name"])
+
+    def halo(y):
+        """Halo class for text at height y, matched to the band behind it."""
+        i = next((k for k, b in enumerate(lay.bands) if b["y"] <= y < b["y"] + b["h"]), 1)
+        return " f-halo f-on-band" if i % 2 == 0 else " f-halo"
+
     for r in view["rooms"]:
         x, y, w, h = lay.containers[r["id"]]
         fig.group(x, y, w, h)
-        fig.label(x + 10, y + 20, r.get("label", r["id"]))
+        fig.text(x + 10, y + 20, r.get("label", r["id"]), "f-label" + halo(y))
+
+    # Links under the devices.
+    for route in lay.routes:
+        link, pts = route["edge"], route["points"]
+        fig.route(pts, kind=link.get("kind", "wired"))
+        if link.get("tag"):
+            _link_tag(fig, pts, link["tag"], halo)
+
+    for d in view.get("devices", []):
+        x, y, w, h = lay.boxes[d["id"]]
+        fig.asset(x, y, w, h, planned=d.get("status") == "planned")
+        fig.text(x + w / 2, y + h / 2 + 4, d.get("label", d["id"]), "f-small", anchor="middle")
+        for cx, cy, line in lay.captions[d["id"]]:
+            fig.text(cx, cy, line, "f-small f-muted" + halo(cy), anchor="middle")
     return fig
+
+
+def _link_tag(fig, pts, text, halo):
+    """Tag a link (e.g. its medium) beside its longest segment."""
+    segs = list(zip(pts, pts[1:]))
+    (ax, ay), (bx, by) = max(segs, key=lambda s: abs(s[1][0] - s[0][0]) + abs(s[1][1] - s[0][1]))
+    if abs(ax - bx) < 0.5:
+        x, y, anchor = ax + 5, (ay + by) / 2 + 3, None
+    else:
+        x, y, anchor = (ax + bx) / 2, ay - 5, "middle"
+    fig.text(x, y, text.upper(), "f-tag" + halo(y), anchor=anchor)

@@ -35,6 +35,10 @@ LINE_KINDS = {
     "human": ("f-flow-human", None),             # carried by people
     "tie": ("f-tie", None),                      # association: belongs to, describes
     "accent": ("f-accent-flow", "arrow-accent"), # the point of the figure
+    # Physical links: how devices are actually connected. No arrowheads,
+    # because a cable or radio link carries data both ways.
+    "wired": ("f-wired", None),                  # Ethernet, MoCA, any cable
+    "radio": ("f-radio", None),                  # Zigbee, WiFi
 }
 
 # Arrowhead markers, added to <defs> only when a line uses them.
@@ -231,6 +235,10 @@ class Figure:
     def note(self, x, y, s, anchor=None):
         """Small, muted explanatory text."""
         return self.text(x, y, s, "f-small f-muted", anchor)
+
+    def tag(self, x, y, s, anchor=None):
+        """A tiny uppercase tag, e.g. the medium on a physical link."""
+        return self.text(x, y, s, "f-tag", anchor)
 
     def accent_text(self, x, y, s, anchor=None):
         """Text that carries the point of the figure."""

@@ -72,6 +72,8 @@ h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
 /* Figures: inline SVG, styled here so they follow the theme */
 .figure { margin: 2rem 0; }
 .figure svg { width: 100%; height: auto; display: block; }
+/* Detailed figures break out of the text column, up to their natural width. */
+.figure.wide { width: min(calc(100vw - 2rem), 1120px); position: relative; left: 50%; transform: translateX(-50%); }
 .figure figcaption { font-size: .9rem; color: var(--muted); margin-top: .6rem; border-left: 2px solid var(--fig-accent); padding-left: .6rem; }
 .fig text { font-family: var(--sans); font-size: 13px; fill: var(--fig-ink); }
 .fig .f-small { font-size: 11px; }
@@ -92,6 +94,8 @@ h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
 .fig .f-inferred { stroke-dasharray: 6 4; }
 .fig .f-flow-human { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; stroke-dasharray: 1.5 4; stroke-linecap: round; }
 .fig .f-tie { stroke: var(--fig-muted); stroke-width: 1; }
+.fig .f-wired { stroke: var(--fig-ink); stroke-width: 2.5; fill: none; }
+.fig .f-radio { stroke: var(--fig-ink); stroke-width: 1.25; fill: none; stroke-dasharray: 7 3 1.5 3; stroke-linecap: round; }
 .fig .f-break { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; }
 .fig .f-arrowhead { fill: var(--fig-ink); }
 .fig .f-arrowhead-accent { fill: var(--fig-accent); }
@@ -104,6 +108,9 @@ h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
 .fig .f-own-fin { fill: var(--bg); }
 .fig .f-own-none { fill: var(--bg); }
 .fig .f-hatch { stroke: var(--fig-asset); stroke-width: 2; }
+/* Halo: text that lines may pass under. Outlined in the colour of the band it sits on. */
+.fig .f-halo { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+.fig .f-halo.f-on-band { stroke: var(--fig-band); }
 .fig .f-tag { font: 600 9px var(--mono); fill: var(--fig-muted); letter-spacing: .04em; }
 .fig .f-boundary { stroke: var(--fig-ink); stroke-width: 2; fill: none; }
 .fig .f-accent-thin { stroke: var(--fig-accent); stroke-width: 1; }

@@ -203,18 +203,36 @@ def layout(view):
 #
 # A section view is a different kind of view:
 #
-#   view:   {id, title, kind: section}
-#   floors: [{id, title}]                  top to bottom
-#   rooms:  [{id, label, floor}]           left to right within each floor
+#   view:    {id, title, kind: section}
+#   floors:  [{id, title}]                          top to bottom
+#   rooms:   [{id, label, floor}]                   left to right within each floor
+#   devices: [{id, label, room, caption: [lines], status}]   in order within a room
+#   links:   [{from, to, kind, tag}]                kind: wired | radio | tie | flow
 #
-# Each floor lays out its own rooms independently (floors don't share columns).
-# Rooms are sized to fit their label for now; devices placed inside them come next.
+# Each floor lays out its own rooms (floors don't share columns). Devices sit
+# inside their room, up to DEVICES_PER_ROW side by side, then wrap. Radio links
+# are straight lines (radio goes through floors); every other link is routed
+# with right angles, like cabling, turning at the edge of the target's floor.
 
 SECTION_GUTTER = 120   # left margin for floor names
-ROOM_H = 96            # tall enough to hold a row of devices later
 ROOM_GAP = 12
 ROOM_MIN_W = 124
 ROOM_PAD = 20          # inside a floor band, above and below the rooms
+ROOM_HEAD = 30         # room label strip at the top of a room
+ROOM_INNER = 10        # padding inside a room around its devices
+DEVICE_H = 24
+DEVICE_GAP = 12
+DEVICES_PER_ROW = 3
+SMALL_CHAR_W = 6.2     # estimated width of one 11px character
+CAPTION_LINE = 13
+
+
+def _device_size(d):
+    box_w = max(56, len(d.get("label", d["id"])) * SMALL_CHAR_W + 16)
+    caption = d.get("caption") or []
+    cell_w = max([box_w] + [len(c) * SMALL_CHAR_W for c in caption])
+    cell_h = DEVICE_H + (4 + CAPTION_LINE * len(caption) if caption else 0)
+    return box_w, cell_w, cell_h
 
 
 def section_layout(view):
@@ -223,28 +241,107 @@ def section_layout(view):
         raise ValueError(f"View {meta.get('id')!r} needs a title stating what it shows.")
     floor_ids = [f["id"] for f in view["floors"]]
     rooms_by_floor = {fid: [] for fid in floor_ids}
-    seen = set()
+    room_floor = {}
     for r in view["rooms"]:
-        if r["id"] in seen:
+        if r["id"] in room_floor:
             raise ValueError(f"Duplicate room {r['id']!r}")
-        seen.add(r["id"])
         if r["floor"] not in rooms_by_floor:
             raise ValueError(f"Room {r['id']!r}: unknown floor {r['floor']!r} (expected one of {floor_ids})")
         rooms_by_floor[r["floor"]].append(r)
+        room_floor[r["id"]] = r["floor"]
+
+    devices_by_room = {rid: [] for rid in room_floor}
+    for d in view.get("devices", []):
+        if d["room"] not in devices_by_room:
+            raise ValueError(f"Device {d['id']!r}: unknown room {d['room']!r}")
+        devices_by_room[d["room"]].append(d)
+
+    # Size each room from its devices: rows of up to DEVICES_PER_ROW.
+    room_size, device_rows = {}, {}
+    for rid, ds in devices_by_room.items():
+        rows = [ds[i:i + DEVICES_PER_ROW] for i in range(0, len(ds), DEVICES_PER_ROW)]
+        device_rows[rid] = rows
+        label = next(r for rs in rooms_by_floor.values() for r in rs if r["id"] == rid)
+        w = max(ROOM_MIN_W, len(label.get("label", rid)) * CHAR_W + LABEL_PAD)
+        h = ROOM_HEAD + ROOM_INNER
+        for row in rows:
+            sizes = [_device_size(d) for d in row]
+            w = max(w, sum(s[1] for s in sizes) + DEVICE_GAP * (len(row) - 1) + 2 * ROOM_INNER)
+            h += max(s[2] for s in sizes) + DEVICE_GAP
+        room_size[rid] = (w, max(h, 72))
 
     out = Layout(width=0, height=0)
-    out.containers = {}
+    out.containers, out.captions, out.room_floor = {}, {}, room_floor
+    band_of = {}
     y, widest = MARGIN, 0
     for f in view["floors"]:
-        h = ROOM_H + 2 * ROOM_PAD
-        out.bands.append({"code": f["title"], "name": "", "y": y, "h": h})
+        rooms = rooms_by_floor[f["id"]]
+        inner = max((room_size[r["id"]][1] for r in rooms), default=72)
+        h = inner + 2 * ROOM_PAD
+        band = {"code": f["title"], "name": "", "y": y, "h": h}
+        out.bands.append(band)
+        band_of[f["id"]] = band
         x = SECTION_GUTTER
-        for r in rooms_by_floor[f["id"]]:
-            w = max(ROOM_MIN_W, len(r.get("label", r["id"])) * CHAR_W + LABEL_PAD)
-            out.containers[r["id"]] = (x, y + ROOM_PAD, w, ROOM_H)
+        for r in rooms:
+            w, rh = room_size[r["id"]]
+            rx, ry = x, y + ROOM_PAD
+            out.containers[r["id"]] = (rx, ry, w, inner)
+            # Devices, row by row, left aligned inside the room.
+            dy = ry + ROOM_HEAD
+            for row in device_rows[r["id"]]:
+                dx = rx + ROOM_INNER
+                row_h = 0
+                for d in row:
+                    box_w, cell_w, cell_h = _device_size(d)
+                    bx = dx + (cell_w - box_w) / 2
+                    out.boxes[d["id"]] = (bx, dy, box_w, DEVICE_H)
+                    out.captions[d["id"]] = [(dx + cell_w / 2, dy + DEVICE_H + 4 + CAPTION_LINE * (k + 1) - 3, c)
+                                             for k, c in enumerate(d.get("caption") or [])]
+                    dx += cell_w + DEVICE_GAP
+                    row_h = max(row_h, cell_h)
+                dy += row_h + DEVICE_GAP
             x += w + ROOM_GAP
         widest = max(widest, x - ROOM_GAP)
         y += h
     out.width = widest + MARGIN
     out.height = y + MARGIN
+
+    # Links.
+    device_floor = {d["id"]: room_floor[d["room"]] for d in view.get("devices", [])}
+    lanes = {}   # turning y -> how many routes already turn there
+    for link in view.get("links", []):
+        for end in ("from", "to"):
+            if link[end] not in out.boxes:
+                raise ValueError(f"Link {link['from']} - {link['to']}: no device {link[end]!r}")
+        sx, sy, sw, sh = out.boxes[link["from"]]
+        tx, ty, tw, th = out.boxes[link["to"]]
+        sf, tf = device_floor[link["from"]], device_floor[link["to"]]
+        if abs(sy - ty) < 0.5:                       # same device row: side to side
+            if tx > sx:
+                pts = [(sx + sw, sy + sh / 2), (tx, ty + th / 2)]
+            else:
+                pts = [(sx, sy + sh / 2), (tx + tw, ty + th / 2)]
+        else:
+            down = ty > sy
+            lo, hi = max(sx, tx), min(sx + sw, tx + tw)
+            if link.get("kind") != "radio" and hi - lo > 8:
+                # The boxes overlap side to side: drop straight between them.
+                mx = (lo + hi) / 2
+                pts = [(mx, sy + sh if down else sy), (mx, ty if down else ty + th)]
+            else:
+                p = (sx + sw / 2, sy + sh if down else sy)
+                q = (tx + tw / 2, ty if down else ty + th)
+                if link.get("kind") == "radio" or abs(p[0] - q[0]) < 0.5:
+                    pts = [p, q]
+                else:
+                    if sf == tf:                      # same floor, different rows
+                        ey = (p[1] + q[1]) / 2
+                    else:                             # turn near the target floor's edge,
+                        b = band_of[tf]               # each route in its own lane
+                        edge = b["y"] if down else b["y"] + b["h"]
+                        k = lanes.get(edge, 0)
+                        lanes[edge] = k + 1
+                        ey = edge - 6 * k if down else edge + 6 * k
+                    pts = [p, (p[0], ey), (q[0], ey), q]
+        out.routes.append({"edge": link, "points": pts})
     return out

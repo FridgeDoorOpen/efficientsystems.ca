@@ -1,4 +1,4 @@
-<figure class="figure">
+<figure class="figure{% if fig.wide %} wide{% endif %}">
   {{ fig.svg | safe }}
   <figcaption>{{ fig.caption }}</figcaption>
 </figure>

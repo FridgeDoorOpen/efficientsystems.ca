@@ -15,6 +15,7 @@ TITLE = (
     "Legend: shapes for asset, system, role, process, decision, artifact and group; "
     "a dashed outline marks anything planned; "
     "lines for data flow, inferred flow, context carried by people, association and no path; "
+    "physical links drawn as a heavy line for cables and a dash-dot line for radio; "
     "the accent colour marks the point; horizontal bands are ISA-95 levels; "
     "a grid of RAMI 4.0 layers by hierarchy level is the second frame."
 )
@@ -22,6 +23,12 @@ TITLE = (
 ROW = 52          # vertical spacing between legend entries
 SWATCH_W = 72     # width of each sample shape or line
 SWATCH_H = 34
+
+# Physical links, under column 1. (kind, label, note)
+LINKS = [
+    ("wired", "Wired link", "A cable. Untagged is Ethernet; others are tagged, e.g. MOCA."),
+    ("radio", "Radio link", "Zigbee, WiFi. Straight, because radio goes through floors."),
+]
 
 # Column 1: things. (method, label, note)
 THINGS = [
@@ -63,7 +70,7 @@ def entry(fig, x, y, label, note, label_cls="label"):
 
 
 def build():
-    fig = Figure("lg", 720, 476, title=TITLE)  # height fits 8 things
+    fig = Figure("lg", 720, 600, title=TITLE)
 
     # Column 1: things
     x, text_x = 20, 110
@@ -74,6 +81,14 @@ def build():
             fig.system(*swatch_box(kind, x, y), planned=True)
         else:
             getattr(fig, kind)(*swatch_box(kind, x, y))
+        entry(fig, text_x, y, label, note)
+
+    # Physical links, below the things
+    fig.heading(x, 488, "Physical links")
+    for i, (kind, label, note) in enumerate(LINKS):
+        y = 508 + i * ROW
+        mid = y + SWATCH_H / 2
+        fig.line(x, mid, x + SWATCH_W, mid, kind=kind)
         entry(fig, text_x, y, label, note)
 
     # Column 2: lines

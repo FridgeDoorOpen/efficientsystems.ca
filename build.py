@@ -27,6 +27,10 @@ EXPORTS = {
     "house.yaml": ROOT.parent / "house" / "exports" / "public.yaml",
 }
 
+# Figures wider than this (in SVG units) break out of the text column, so detailed
+# views keep their text at full size instead of shrinking to fit.
+WIDE_FIGURE = 800
+
 # The only top-level paths in public/ this script may create or replace.
 OWNED = ["index.html", "style.css", "llms.txt", "principles", "legend", "lab"]
 
@@ -55,7 +59,9 @@ def read_page(path):
     page["figs"] = []
     for f in figs:
         svg = (path.parent / f["file"]).read_text(encoding="utf-8")
-        page["figs"].append({"svg": re.sub(r"<\?xml[^>]*\?>\s*", "", svg), "caption": f["caption"]})
+        m = re.search(r'viewBox="0 0 ([0-9.]+)', svg)
+        wide = bool(m) and float(m.group(1)) > WIDE_FIGURE
+        page["figs"].append({"svg": re.sub(r"<\?xml[^>]*\?>\s*", "", svg), "caption": f["caption"], "wide": wide})
     return page
 
 
