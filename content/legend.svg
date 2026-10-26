@@ -34,7 +34,7 @@
   <text class="f-small f-muted" x="110" y="390">Things read together as one.</text>
   <rect class="f-system f-planned" x="20" y="412" width="72" height="34" rx="8" />
   <text class="f-label" x="110" y="426">Planned</text>
-  <text class="f-small f-muted" x="110" y="442">Decided on, not built yet. Any shape, dashed.</text>
+  <text class="f-small f-muted" x="110" y="442">Decided on, not built yet. Shapes dashed; lines dashed, muted.</text>
   <text class="f-heading" x="20" y="488">Physical links</text>
   <line class="f-wired" x1="20" y1="525" x2="92" y2="525" />
   <text class="f-label" x="110" y="522">Wired link</text>

@@ -90,10 +90,12 @@ h1 { font-size: 1.6rem; line-height: 1.25; margin: 2rem 0 1rem; }
 .fig .f-role { fill: var(--bg); stroke: var(--fig-ink); stroke-width: 1.5; }
 .fig .f-group { fill: none; stroke: var(--fig-muted); stroke-width: 1; stroke-dasharray: 4 3; }
 .fig .f-planned { stroke-dasharray: 5 3; }
+/* A planned line: muted as well as dashed, so it can't be mistaken for an inferred flow. */
+.fig .f-flow.f-planned { stroke: var(--fig-muted); }
 .fig .f-flow { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; }
 .fig .f-inferred { stroke-dasharray: 6 4; }
 .fig .f-flow-human { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; stroke-dasharray: 1.5 4; stroke-linecap: round; }
-.fig .f-tie { stroke: var(--fig-muted); stroke-width: 1; }
+.fig .f-tie { stroke: var(--fig-muted); stroke-width: 1; fill: none; }
 .fig .f-wired { stroke: var(--fig-ink); stroke-width: 2.5; fill: none; }
 .fig .f-radio { stroke: var(--fig-ink); stroke-width: 1.25; fill: none; stroke-dasharray: 7 3 1.5 3; stroke-linecap: round; }
 .fig .f-break { stroke: var(--fig-ink); stroke-width: 1.5; fill: none; }

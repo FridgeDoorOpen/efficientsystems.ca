@@ -160,7 +160,7 @@ class Figure:
         self._add("line", "f-flow", x1=x1, y1=y1, x2=x2, y2=y2)
         return self._break(x1, y1, x2, y2)
 
-    def route(self, points, kind="flow"):
+    def route(self, points, kind="flow", planned=False):
         """A line through several points (e.g. with elbows), of any line kind,
         or "no_path" to stop short of the last point with a break mark."""
         pts = [(float(x), float(y)) for x, y in points]
@@ -174,7 +174,7 @@ class Figure:
         if kind not in LINE_KINDS:
             raise ValueError(f"Unknown line kind {kind!r}; use one of {list(LINE_KINDS)} or 'no_path'")
         cls, marker = LINE_KINDS[kind]
-        el = self._add("path", cls, d=self._d(pts))
+        el = self._add("path", self._cls(cls, planned), d=self._d(pts))
         if marker:
             el.set("marker-end", self._marker(marker))
         return el

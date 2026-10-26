@@ -16,12 +16,22 @@ def load(path):
     return yaml.safe_load(Path(path).read_text(encoding="utf-8"))
 
 
+def halo_for(bands):
+    """Return a function giving the halo classes for text at height y, so the
+    outline matches the band behind it and lines can pass under the text."""
+    def halo(y):
+        i = next((k for k, b in enumerate(bands) if b["y"] <= y < b["y"] + b["h"]), 1)
+        return " f-halo f-on-band" if i % 2 == 0 else " f-halo"
+    return halo
+
+
 def draw(view):
     if view["view"].get("kind") == "section":
         return draw_section(view)
     meta = view["view"]
     lay = layout(view)
     fig = Figure(meta["id"], lay.width, lay.height, title=meta["title"])
+    halo = halo_for(lay.bands)
 
     # Frame: bands with their level labels, then column headings.
     for i, b in enumerate(lay.bands):
@@ -33,9 +43,17 @@ def draw(view):
     # Lines go under the boxes.
     for r in lay.routes:
         e, pts = r["edge"], r["points"]
-        fig.route(pts, kind=e.get("kind", "flow"))
+        fig.route(pts, kind=e.get("kind", "flow"), planned=e.get("status") == "planned")
         if e.get("label"):
-            _edge_label(fig, pts, e["label"])
+            _edge_label(fig, pts, e["label"], halo)
+
+    # Unobserved things: a short path upward that stops (the legend's "no path").
+    for n in view["nodes"]:
+        if n.get("no_path") == "up":
+            x, y, w, h = lay.boxes[n["id"]]
+            cx = x + w / 2
+            fig.no_path(cx, y, cx, y - 6)
+            fig.text(cx + 14, y - 14, n.get("no_path_note", "no path"), "f-small f-muted" + halo(y - 14))
 
     # Boxes and their labels.
     for n in view["nodes"]:
@@ -55,14 +73,15 @@ def draw(view):
     return fig
 
 
-def _edge_label(fig, pts, text):
+def _edge_label(fig, pts, text, halo):
     """Put a line's label beside its longest segment."""
     segs = list(zip(pts, pts[1:]))
     (ax, ay), (bx, by) = max(segs, key=lambda s: abs(s[1][0] - s[0][0]) + abs(s[1][1] - s[0][1]))
     if abs(ax - bx) < 0.5:   # vertical: to the right of the line
-        fig.note(ax + 6, (ay + by) / 2 + 4, text)
+        x, y, anchor = ax + 6, (ay + by) / 2 + 4, None
     else:                    # horizontal: just above the line
-        fig.note((ax + bx) / 2, ay - 6, text, anchor="middle")
+        x, y, anchor = (ax + bx) / 2, ay - 6, "middle"
+    fig.text(x, y, text, "f-small f-muted" + halo(y), anchor=anchor)
 
 
 def draw_section(view):
@@ -74,11 +93,7 @@ def draw_section(view):
     for i, b in enumerate(lay.bands):
         fig.band(0, b["y"], lay.width, b["h"], alt=i % 2 == 1)
         fig.band_label(12, b["y"] + 24, b["code"], b["name"])
-
-    def halo(y):
-        """Halo class for text at height y, matched to the band behind it."""
-        i = next((k for k, b in enumerate(lay.bands) if b["y"] <= y < b["y"] + b["h"]), 1)
-        return " f-halo f-on-band" if i % 2 == 0 else " f-halo"
+    halo = halo_for(lay.bands)
 
     for r in view["rooms"]:
         x, y, w, h = lay.containers[r["id"]]

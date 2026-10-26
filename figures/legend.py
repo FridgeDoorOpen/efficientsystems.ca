@@ -39,7 +39,7 @@ THINGS = [
     ("decision", "Decision", "A judgment someone actually makes."),
     ("artifact", "Artifact", "A form, template, rating or document."),
     ("group", "Group", "Things read together as one."),
-    ("planned", "Planned", "Decided on, not built yet. Any shape, dashed."),
+    ("planned", "Planned", "Decided on, not built yet. Shapes dashed; lines dashed, muted."),
 ]
 
 # Column 2: lines. (kind, label, note)

@@ -189,6 +189,7 @@ instruments:
   enterprise_equivalent: Discrete alarm switch
 external_sources:
 - id: environment_canada
+  label: Weather feed
   type: weather_service
   observes: outdoors
   via: home_assistant
@@ -197,6 +198,7 @@ external_sources:
   rami: integration
   enterprise_equivalent: Third-party data feed (weather, market prices)
 - id: enmax_bills
+  label: Utility bills
   type: utility_billing
   granularity: monthly
   status: planned
@@ -232,6 +234,7 @@ hosts:
   rami: asset
 services:
 - id: zigbee_coordinator
+  label: Zigbee coordinator
   product: Sonoff ZBDongle-E
   hosted_on: pi5
   status: active
@@ -239,6 +242,7 @@ services:
   rami: communication
   enterprise_equivalent: Field network gateway / RTU comms
 - id: home_assistant
+  label: Home Assistant
   product: Home Assistant OS
   hosted_on: pi5
   integrations:
@@ -250,6 +254,7 @@ services:
   rami: integration
   enterprise_equivalent: SCADA server / data collector
 - id: influxdb
+  label: InfluxDB
   product: InfluxDB
   hosted_on: nas
   status: active
@@ -257,6 +262,7 @@ services:
   rami: information
   enterprise_equivalent: Process historian (e.g. AVEVA PI)
 - id: grafana
+  label: Grafana
   product: Grafana
   hosted_on: nas
   status: active
@@ -270,7 +276,9 @@ services:
   rami: communication
   enterprise_equivalent: Corporate DNS filtering
 - id: esc_house_site
+  label: ESC house page
   product: Static site (Python build), subdomain behind Cloudflare Access
+  hosted_on: nas
   status: planned
   isa95: L4
   rami: business

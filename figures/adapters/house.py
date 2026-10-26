@@ -61,6 +61,8 @@ def section(data=None):
 
     # Network gear first, then hosts, then sensors, then what the sensors watch.
     for n in data.get("nodes", []):
+        if n.get("type") == "placeholder":
+            continue                       # stands in for unrecorded data; nothing to draw
         room = INTERNET if n.get("type") == "isp_connection" else n.get("located_in")
         add(n, n.get("label") or TYPE_LABEL.get(n.get("type")) or name(n), room)
     for h in data.get("hosts", []):
@@ -126,4 +128,107 @@ def section(data=None):
     }
 
 
-VIEWS = [section]
+
+
+# ---- Logical view: the same devices by ISA-95 level ---------------------------
+
+def logical(data=None):
+    """The house's data path on ISA-95 levels, in columns by where each piece runs."""
+    data = data or load()
+    hosts = {h["id"]: h for h in data.get("hosts", [])}
+    services = {s["id"]: s for s in data.get("services", [])}
+    instruments = data.get("instruments", [])
+    externals = data.get("external_sources", [])
+
+    # Columns: the field, each host that runs part of the data path, then outside.
+    on_path = [s for s in services.values() if s.get("isa95")]
+    host_order = []
+    for s in on_path:
+        if s.get("hosted_on") in hosts and s["hosted_on"] not in host_order:
+            host_order.append(s["hosted_on"])
+    columns = ([{"id": "field", "title": "In the rooms"}]
+               + [{"id": h, "title": name(hosts[h])} for h in host_order]
+               + [{"id": "outside", "title": "Outside"}])
+
+    nodes, edges = [], []
+
+    # L0: equipment on the operations path. Observed things tie to their sensor
+    # group; unobserved things get a path that stops.
+    observed = {i.get("observes"): i for i in instruments if i.get("observes")}
+    # Observed things last, so they sit under their sensors and the tie stays short.
+    equipment = sorted((e for e in data.get("equipment", []) if e.get("isa95") == "L0"),
+                       key=lambda e: e["id"] in observed)
+    # L1: sensors grouped by how they reach the system.
+    by_medium = {}
+    for i in instruments:
+        by_medium.setdefault((i.get("link") or {}).get("medium"), []).append(i)
+    # Groups that go through a gateway in the same row (Zigbee via the coordinator)
+    # sit last, next to the gateway's column, so their line runs clear of the others.
+    services_row = {s["id"]: s.get("isa95") for s in services.values()}
+    by_medium = dict(sorted(by_medium.items(),
+                            key=lambda kv: services_row.get((kv[1][0].get("link") or {}).get("to")) == "L1"))
+    group_of = {}
+    for medium, group in by_medium.items():
+        if len(group) == 1:
+            gid, label, kind = group[0]["id"], f"{MEDIUM.get(medium, medium)} sensor", "asset"
+        else:
+            gid, label, kind = f"{medium}_sensors", f"{MEDIUM.get(medium, medium)} sensors ×{len(group)}", "group"
+        nodes.append({"id": gid, "label": label, "kind": kind, "row": "L1", "col": "field"})
+        for i in group:
+            group_of[i["id"]] = gid
+    for e in equipment:
+        node = {"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field"}
+        if e["id"] in observed:
+            edges.append({"from": e["id"], "to": group_of[observed[e["id"]]["id"]], "kind": "tie",
+                          "label": "leak sensor" if "moisture" in (observed[e["id"]].get("measures") or [])
+                          else "sensor"})
+        else:
+            node.update(no_path="up", no_path_note="not observed")
+        nodes.append(node)
+
+    # Services on the data path, in the column of their host.
+    for s in on_path:
+        nodes.append({"id": s["id"], "label": name(s), "kind": "system", "row": s["isa95"],
+                      "col": s.get("hosted_on") if s.get("hosted_on") in hosts else "outside",
+                      "status": s.get("status")})
+    # External sources, outside. Bills are documents, so they are artifacts.
+    for x in externals:
+        nodes.append({"id": x["id"], "label": name(x), "row": x["isa95"], "col": "outside",
+                      "kind": "artifact" if x.get("type") == "utility_billing" else "system",
+                      "status": x.get("status")})
+
+    ids = {n["id"] for n in nodes}
+    # Sensors reach their system: Zigbee via the coordinator, WiFi direct (from the flows).
+    for medium, group in by_medium.items():
+        target = (group[0].get("link") or {}).get("to")
+        gid = group_of[group[0]["id"]]
+        if target in ids:
+            edges.append({"from": gid, "to": target, "kind": "flow", "label": MEDIUM.get(medium)})
+    for f in data.get("flows", []):
+        a, b = group_of.get(f["from"], f["from"]), f["to"]
+        if a in ids and b in ids and not any(e["from"] == a and e["to"] == b for e in edges):
+            edge = {"from": a, "to": b, "kind": "flow", "status": f.get("status")}
+            if a in group_of.values():
+                edge["label"] = MEDIUM.get((next(i for i in instruments if group_of[i["id"]] == a)
+                                            .get("link") or {}).get("medium"))
+            edges.append(edge)
+
+    return {
+        "view": {
+            "id": "house-logical",
+            "rows": "isa95",
+            "columns": columns,
+            "title": (
+                "The same house by ISA-95 level, in columns by where each piece runs. Zigbee sensors "
+                "reach Home Assistant through the coordinator on the Raspberry Pi 5, and a WiFi sensor "
+                "reaches it directly; readings climb to InfluxDB and Grafana on the NAS, with an ESC "
+                "page planned on top. The fridge is watched by a leak sensor; the furnace and the "
+                "garage heater are not observed at all. Utility bills are planned at the business level."
+            ),
+        },
+        "nodes": nodes,
+        "edges": edges,
+    }
+
+
+VIEWS = [section, logical]

@@ -35,9 +35,9 @@
   <text class="f-heading" x="419.2" y="26" text-anchor="middle">Edge</text>
   <text class="f-heading" x="623.6" y="26" text-anchor="middle">Server</text>
   <path class="f-flow" d="M246.4 310L246.4 286L419.2 286L419.2 262" marker-end="url(#sample-historian-arrow)" />
-  <text class="f-small f-muted" x="332.8" y="280" text-anchor="middle">Zigbee</text>
+  <text class="f-small f-muted f-halo f-on-band" x="332.8" y="280" text-anchor="middle">Zigbee</text>
   <path class="f-flow" d="M419.2 228L419.2 204L570.4 204L570.4 180" marker-end="url(#sample-historian-arrow)" />
-  <text class="f-small f-muted" x="494.8" y="198" text-anchor="middle">line protocol</text>
+  <text class="f-small f-muted f-halo" x="494.8" y="198" text-anchor="middle">line protocol</text>
   <path class="f-flow" d="M611.2 163L643.2 163" marker-end="url(#sample-historian-arrow)" />
   <path class="f-flow f-inferred" d="M570.4 146L570.4 122L623.6 122L623.6 98" marker-end="url(#sample-historian-arrow)" />
   <rect class="f-asset" x="184" y="310" width="124.8" height="34" />
