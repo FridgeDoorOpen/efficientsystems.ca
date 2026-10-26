@@ -4,6 +4,6 @@
 <article>
   <h1>{{ page.title }}</h1>
   {{ page.body | safe }}
-  {% if page.figs %}{% with fig = page.figs[0] %}{% include "_figure.html" %}{% endwith %}{% endif %}
+  {% for fig in page.figs %}{% include "_figure.html" %}{% endfor %}
 </article>
 {% endblock %}

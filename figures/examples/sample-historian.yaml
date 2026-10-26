@@ -1,0 +1,25 @@
+# A small hand-written view for testing the layout. Not real house data.
+view:
+  id: sample-historian
+  title: >-
+    Sample view: a climate sensor's readings climb from the field through Home
+    Assistant to InfluxDB and Grafana; a planned ESC page would draw on the
+    historian, but that link is not built yet.
+  rows: isa95
+  columns:
+    - {id: field, title: Field}
+    - {id: edge, title: Edge}
+    - {id: server, title: Server}
+
+nodes:
+  - {id: sensor,  label: Climate sensor, kind: asset,  row: L1, col: field}
+  - {id: ha,      label: Home Assistant, kind: system, row: L2, col: edge}
+  - {id: influx,  label: InfluxDB,       kind: system, row: L3, col: server}
+  - {id: grafana, label: Grafana,        kind: system, row: L3, col: server}
+  - {id: site,    label: ESC page,       kind: system, row: L4, col: server, status: planned}
+
+edges:
+  - {from: sensor, to: ha,      kind: flow, label: Zigbee}
+  - {from: ha,     to: influx,  kind: flow, label: line protocol}
+  - {from: influx, to: grafana, kind: flow}
+  - {from: influx, to: site,    kind: inferred}

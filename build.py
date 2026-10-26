@@ -12,13 +12,16 @@ import markdown
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+import figures.lab
+import figures.legend
+
 ROOT = Path(__file__).parent
 CONTENT = ROOT / "content"
 PUBLIC = ROOT / "public"
 SITE_URL = "https://efficientsystems.ca"
 
 # The only top-level paths in public/ this script may create or replace.
-OWNED = ["index.html", "style.css", "llms.txt", "principles", "legend"]
+OWNED = ["index.html", "style.css", "llms.txt", "principles", "legend", "lab"]
 
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True)
 
@@ -34,10 +37,14 @@ def read_page(path):
     _, header, body = text.split("---", 2)
     page = yaml.safe_load(header)
     page["body"] = markdown.markdown(body, extensions=["tables"])
-    # A page may name one figure (figure + caption) or several (figures: list).
+    # A page may name one figure (figure + caption) or several (figures: list),
+    # or take every SVG in a folder (figures_dir), captioned by file name.
     figs = page.get("figures") or (
         [{"file": page["figure"], "caption": page.get("caption", "")}] if page.get("figure") else []
     )
+    if page.get("figures_dir"):
+        for svg in sorted((path.parent / page["figures_dir"]).glob("*.svg")):
+            figs.append({"file": f"{page['figures_dir']}/{svg.name}", "caption": svg.stem})
     page["figs"] = []
     for f in figs:
         svg = (path.parent / f["file"]).read_text(encoding="utf-8")
@@ -72,16 +79,23 @@ def llms_txt(pages):
         "",
     ]
     for p in pages:
+        if p.get("noindex"):
+            continue
         lines.append(f"- [{p['title']}]({SITE_URL}{p['url']}): {p['description']}")
     return "\n".join(lines) + "\n"
 
 
 def main():
+    # Figures first: generated SVGs land in content/ and are read in below.
+    figures.legend.main()
+    figures.lab.main()
+
     pages = []
 
     # Single pages
     pages.append(render("page.html", "index.html", read_page(CONTENT / "home.md")))
     pages.append(render("page.html", "legend/index.html", read_page(CONTENT / "legend.md")))
+    pages.append(render("page.html", "lab/index.html", read_page(CONTENT / "lab.md")))
 
     # Principles: one page each, ordered by their number
     principles = []

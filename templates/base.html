@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Efficient Systems Canada{% endblock %}</title>
-  <meta name="description" content="{{ page.description }}">
+  <meta name="description" content="{{ page.description }}">{% if page.noindex %}
+  <meta name="robots" content="noindex, nofollow">{% endif %}
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
