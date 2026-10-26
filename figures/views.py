@@ -88,6 +88,9 @@ def draw_section(view):
     # Links under the devices.
     for route in lay.routes:
         link, pts = route["edge"], route["points"]
+        if route.get("control"):
+            fig.curve(pts[0], route["control"], pts[1], kind=link.get("kind", "radio"))
+            continue
         fig.route(pts, kind=link.get("kind", "wired"))
         if link.get("tag"):
             _link_tag(fig, pts, link["tag"], halo)

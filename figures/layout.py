@@ -316,6 +316,13 @@ def section_layout(view):
         sx, sy, sw, sh = out.boxes[link["from"]]
         tx, ty, tw, th = out.boxes[link["to"]]
         sf, tf = device_floor[link["from"]], device_floor[link["to"]]
+        if abs(sy - ty) < 0.5 and link.get("kind") == "radio":
+            # Radio along a row: arc below the row, clear of the boxes between.
+            p, q = (sx + sw / 2, sy + sh), (tx + tw / 2, ty + th)
+            dip = 30                                  # depth of the arc below the boxes
+            out.routes.append({"edge": link, "points": [p, q],
+                               "control": ((p[0] + q[0]) / 2, p[1] + 2 * dip)})
+            continue
         if abs(sy - ty) < 0.5:                       # same device row: side to side
             if tx > sx:
                 pts = [(sx + sw, sy + sh / 2), (tx, ty + th / 2)]

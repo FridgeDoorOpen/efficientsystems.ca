@@ -168,7 +168,7 @@ instruments:
   located_in: garage
   link:
     medium: wifi
-    to: unknown_ap
+    to: living_room_ap
   power: mains
   reporting: periodic_30s
   isa95: L1
@@ -224,9 +224,10 @@ hosts:
   enterprise_equivalent: Data centre server
 - id: pi_zero
   label: Raspberry Pi Zero
+  located_in: theatre
   link:
     medium: wifi
-    to: unknown_ap
+    to: udm
   status: active
   rami: asset
 services:
@@ -291,6 +292,7 @@ nodes:
   - router
   - firewall
   - dhcp
+  - wifi
   located_in: gym
   status: active
   rami: communication
@@ -325,6 +327,7 @@ nodes:
   enterprise_equivalent: Wireless access point
 - id: uap_ac_lite
   type: access_point
+  located_in: living_room
   status: planned
   rami: communication
 - id: unknown_ap

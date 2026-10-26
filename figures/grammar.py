@@ -179,6 +179,16 @@ class Figure:
             el.set("marker-end", self._marker(marker))
         return el
 
+    def curve(self, p, c, q, kind="radio"):
+        """A gentle arc from p to q, bending toward control point c. Used where a
+        straight line would run through other things (e.g. radio along a row)."""
+        cls, marker = LINE_KINDS[kind]
+        d = f"M{num(p[0])} {num(p[1])}Q{num(c[0])} {num(c[1])} {num(q[0])} {num(q[1])}"
+        el = self._add("path", cls, d=d)
+        if marker:
+            el.set("marker-end", self._marker(marker))
+        return el
+
     @staticmethod
     def _d(pts):
         return "M" + "L".join(f"{num(x)} {num(y)}" for x, y in pts)
