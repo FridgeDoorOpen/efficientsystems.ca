@@ -27,3 +27,18 @@ Neither is access control: anyone with the URL can open these pages.
 ## Serving
 
 Only `public/` is served by Nginx. Anything outside it (this README, `.git/`) is never reachable from the web.
+
+On the NAS, the repo lives at `/mnt/tank/apps/efficientsystems.ca`. Nginx runs from
+`/mnt/tank/apps/compose/efficientsystems/docker-compose.yml` and mounts `public/` read-only.
+
+## Deploying
+
+Build and commit on the Mac (`public/` is committed, so nothing is built on the NAS), push, then:
+
+```
+ssh truenas_admin@truenas.local
+cd /mnt/tank/apps/efficientsystems.ca
+git pull
+```
+
+Changes are live immediately; Nginx needs no restart.
