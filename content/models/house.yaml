@@ -87,6 +87,9 @@ equipment:
   - basement
   - main_floor
   - upper_floor
+  energy: gas
+  load_basis: estimated
+  connected: planned
   status: active
   isa95: L0
   rami: asset
@@ -96,6 +99,9 @@ equipment:
   located_in: garage
   serves:
   - garage
+  energy: gas
+  load_basis: estimated
+  connected: planned
   status: active
   isa95: L0
   rami: asset
@@ -103,6 +109,9 @@ equipment:
 - id: water_heater
   type: water_heater
   located_in: furnace_room
+  energy: gas
+  load_basis: estimated
+  connected: never
   status: active
   isa95: L0
   rami: asset
@@ -110,12 +119,18 @@ equipment:
 - id: kitchen_fridge
   type: appliance
   located_in: kitchen
+  energy: electric
+  load_basis: estimated
+  connected: never
   status: active
   isa95: L0
   rami: asset
   enterprise_equivalent: Unmetered auxiliary load (estimated)
 - id: stove
   located_in: kitchen
+  energy: electric
+  load_basis: estimated
+  connected: never
   status: active
   isa95: L0
   rami: asset
@@ -123,6 +138,9 @@ equipment:
 - id: washer
   type: clothes_washer
   located_in: laundry
+  energy: electric
+  load_basis: estimated
+  connected: never
   status: active
   isa95: L0
   rami: asset
@@ -130,6 +148,9 @@ equipment:
 - id: dryer
   type: clothes_dryer
   located_in: laundry
+  energy: electric
+  load_basis: estimated
+  connected: never
   status: active
   isa95: L0
   rami: asset

@@ -177,15 +177,28 @@ def logical(data=None):
         nodes.append({"id": gid, "label": label, "kind": kind, "row": "L1", "col": "field"})
         for i in group:
             group_of[i["id"]] = gid
-    for e in equipment:
-        node = {"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field"}
-        if e["id"] in observed:
-            edges.append({"from": e["id"], "to": group_of[observed[e["id"]]["id"]], "kind": "tie",
-                          "label": "leak sensor" if "moisture" in (observed[e["id"]].get("measures") or [])
-                          else "sensor"})
-        else:
-            node.update(no_path="up", no_path_note="not observed")
-        nodes.append(node)
+    # Three kinds of L0 equipment, left to right:
+    #   not observed yet  a gap (connection planned or undecided): path that stops
+    #   estimated         never to be connected, by choice: grouped, no stub
+    #   observed          watched by a sensor: tied to its sensor group
+    gap = [e for e in equipment if e["id"] not in observed and e.get("connected") != "never"]
+    chosen = [e for e in equipment if e["id"] not in observed and e.get("connected") == "never"]
+    watched = [e for e in equipment if e["id"] in observed]
+    for e in gap:
+        nodes.append({"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field",
+                      "no_path": "up", "no_path_note": "not observed yet"})
+    if len(chosen) == 1:
+        e = chosen[0]
+        nodes.append({"id": e["id"], "label": f"{name(e)} · estimated", "kind": "asset",
+                      "row": "L0", "col": "field"})
+    elif chosen:
+        nodes.append({"id": "estimated_appliances", "label": f"Appliances ×{len(chosen)} · estimated",
+                      "kind": "group", "row": "L0", "col": "field"})
+    for e in watched:
+        nodes.append({"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field"})
+        edges.append({"from": e["id"], "to": group_of[observed[e["id"]]["id"]], "kind": "tie",
+                      "label": "leak sensor" if "moisture" in (observed[e["id"]].get("measures") or [])
+                      else "sensor"})
 
     # Services on the data path, in the column of their host.
     for s in on_path:
@@ -223,8 +236,9 @@ def logical(data=None):
                 "The same house by ISA-95 level, in columns by where each piece runs. Zigbee sensors "
                 "reach Home Assistant through the coordinator on the Raspberry Pi 5, and a WiFi sensor "
                 "reaches it directly; readings climb to InfluxDB and Grafana on the NAS, with an ESC "
-                "page planned on top. The fridge is watched by a leak sensor; the furnace and the "
-                "garage heater are not observed at all. Utility bills are planned at the business level."
+                "page planned on top. At the physical level, the furnace and the garage heater are not "
+                "observed yet; four appliances are deliberately left unconnected, their loads estimated; "
+                "the fridge is watched by a leak sensor. Utility bills are planned at the business level."
             ),
         },
         "nodes": nodes,
