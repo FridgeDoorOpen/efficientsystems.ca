@@ -4,16 +4,20 @@ Static site for Efficient Systems Canada, self-hosted on the NAS (Nginx behind a
 
 ## Layout
 
-- `/` — ESC placeholder page
+- `/` — ESC home, `/principles/`, `/legend/` — built by `build.py` from `content/` and `templates/`
 - `/teaching/` — index of classroom tools (not linked from the ESC root)
 - `/teaching/<tool>/index.html` — one folder per tool
 
 ## Adding a classroom tool
 
-1. Create `teaching/<tool-name>/index.html`
+1. Create `public/teaching/<tool-name>/index.html`
 2. Add `<meta name="robots" content="noindex, nofollow">` in its `<head>`
-3. Add a link to it in `teaching/index.html`
+3. Add a link to it in `public/teaching/index.html`
 4. Push, then pull on the NAS
+
+## Building
+
+`uv run build.py` writes only the paths listed in `OWNED` inside `public/`. Teaching tools and `robots.txt` are never touched.
 
 ## Search engines
 
