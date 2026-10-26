@@ -39,6 +39,11 @@ Build and commit on the Mac (`public/` is committed, so nothing is built on the 
 ssh truenas_admin@truenas.local
 cd /mnt/tank/apps/efficientsystems.ca
 git pull
+find public -type d -exec chmod 755 {} + && find public -type f -exec chmod 644 {} +
 ```
 
 Changes are live immediately; Nginx needs no restart.
+
+The permission step matters. `git pull` writes changed files with the NAS account's default
+permissions (umask 007: no access for "others"), and the Nginx container reads the files as
+"others". Skip it and the site answers 403 Forbidden.
