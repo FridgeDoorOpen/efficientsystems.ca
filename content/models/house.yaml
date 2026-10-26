@@ -82,6 +82,7 @@ spaces:
 equipment:
 - id: furnace
   type: forced_air_furnace
+  located_in: furnace_room
   serves:
   - basement
   - main_floor
@@ -92,17 +93,47 @@ equipment:
   enterprise_equivalent: Process equipment (e.g. compressor unit)
 - id: garage_heater
   type: space_heater
+  located_in: garage
   serves:
   - garage
   status: active
   isa95: L0
   rami: asset
+  enterprise_equivalent: Process equipment (e.g. fired heater)
+- id: water_heater
+  type: water_heater
+  located_in: furnace_room
+  status: active
+  isa95: L0
+  rami: asset
+  enterprise_equivalent: Unmetered fuel-gas consumer (estimated)
 - id: kitchen_fridge
   type: appliance
   located_in: kitchen
   status: active
   isa95: L0
   rami: asset
+  enterprise_equivalent: Unmetered auxiliary load (estimated)
+- id: stove
+  located_in: kitchen
+  status: active
+  isa95: L0
+  rami: asset
+  enterprise_equivalent: Unmetered auxiliary load (estimated)
+- id: washer
+  type: clothes_washer
+  located_in: laundry
+  status: active
+  isa95: L0
+  rami: asset
+  enterprise_equivalent: Unmetered auxiliary load (estimated)
+- id: dryer
+  type: clothes_dryer
+  located_in: laundry
+  status: active
+  isa95: L0
+  rami: asset
+  enterprise_equivalent: Unmetered auxiliary load (estimated)
 - id: theatre_tv
   type: display
   located_in: theatre

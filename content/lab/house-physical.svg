@@ -41,7 +41,7 @@
   <text class="f-label f-halo" x="130" y="459">Furnace Room</text>
   <rect class="f-group" x="256" y="439" width="243.8" height="185" rx="6" />
   <text class="f-label f-halo" x="266" y="459">Gym</text>
-  <rect class="f-group" x="511.8" y="439" width="609.2" height="185" rx="6" />
+  <rect class="f-group" x="511.8" y="439" width="373.6" height="185" rx="6" />
   <text class="f-label f-halo" x="521.8" y="459">Theatre</text>
   <path class="f-wired" d="M320.5 94L320.5 469" />
   <path class="f-wired" d="M387.4 481L399.4 481" />
@@ -52,9 +52,9 @@
   <path class="f-wired" d="M612.2 481L624.2 481" />
   <path class="f-wired" d="M929.4 348L941.4 348" />
   <path class="f-wired" d="M693.5 481L680.2 481" />
-  <path class="f-wired" d="M672.9 535L672.9 493" />
-  <path class="f-radio" d="M978.9 535L326.7 493" />
-  <path class="f-radio" d="M1081.3 535L744.9 493" />
+  <path class="f-wired" d="M634.3 535L634.3 493" />
+  <path class="f-radio" d="M743.3 535L326.7 493" />
+  <path class="f-radio" d="M845.7 535L744.9 493" />
   <path class="f-radio" d="M594.5 360L744.9 469" />
   <path class="f-radio" d="M431.7 227L744.9 469" />
   <path class="f-radio" d="M159.7 360L744.9 469" />
@@ -81,17 +81,17 @@
   <text class="f-small" x="744.9" y="485" text-anchor="middle">Raspberry Pi 5</text>
   <text class="f-small f-muted f-halo" x="744.9" y="507" text-anchor="middle">Sonoff ZBDongle-E</text>
   <text class="f-small f-muted f-halo" x="744.9" y="520" text-anchor="middle">Home Assistant OS</text>
-  <rect class="f-asset" x="665.7" y="535" width="96.6" height="24" />
-  <text class="f-small" x="714" y="551" text-anchor="middle">NAS (TrueNAS)</text>
-  <text class="f-small f-muted f-halo" x="714" y="573" text-anchor="middle">InfluxDB</text>
-  <text class="f-small f-muted f-halo" x="714" y="586" text-anchor="middle">Grafana</text>
-  <text class="f-small f-muted f-halo" x="714" y="599" text-anchor="middle">Static site (Python build), subdomain behind Cloudflare Access</text>
-  <rect class="f-asset" x="918.2" y="535" width="121.4" height="24" />
-  <text class="f-small" x="978.9" y="551" text-anchor="middle">Raspberry Pi Zero</text>
-  <text class="f-small f-muted f-halo" x="978.9" y="573" text-anchor="middle">Pi-hole</text>
-  <rect class="f-asset" x="1051.6" y="535" width="59.4" height="24" />
-  <text class="f-small" x="1081.3" y="551" text-anchor="middle">Climate</text>
-  <text class="f-small f-muted f-halo" x="1081.3" y="573" text-anchor="middle">Zigbee</text>
+  <rect class="f-asset" x="547.9" y="535" width="96.6" height="24" />
+  <text class="f-small" x="596.2" y="551" text-anchor="middle">NAS (TrueNAS)</text>
+  <text class="f-small f-muted f-halo" x="596.2" y="573" text-anchor="middle">InfluxDB</text>
+  <text class="f-small f-muted f-halo" x="596.2" y="586" text-anchor="middle">Grafana</text>
+  <text class="f-small f-muted f-halo" x="596.2" y="599" text-anchor="middle">ESC house page (planned)</text>
+  <rect class="f-asset" x="682.6" y="535" width="121.4" height="24" />
+  <text class="f-small" x="743.3" y="551" text-anchor="middle">Raspberry Pi Zero</text>
+  <text class="f-small f-muted f-halo" x="743.3" y="573" text-anchor="middle">Pi-hole</text>
+  <rect class="f-asset" x="816" y="535" width="59.4" height="24" />
+  <text class="f-small" x="845.7" y="551" text-anchor="middle">Climate</text>
+  <text class="f-small f-muted f-halo" x="845.7" y="573" text-anchor="middle">Zigbee</text>
   <rect class="f-asset" x="564.8" y="336" width="59.4" height="24" />
   <text class="f-small" x="594.5" y="352" text-anchor="middle">Climate</text>
   <text class="f-small f-muted f-halo f-on-band" x="594.5" y="374" text-anchor="middle">Zigbee</text>

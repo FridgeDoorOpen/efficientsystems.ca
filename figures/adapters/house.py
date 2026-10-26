@@ -66,7 +66,8 @@ def section(data=None):
         room = INTERNET if n.get("type") == "isp_connection" else n.get("located_in")
         add(n, n.get("label") or TYPE_LABEL.get(n.get("type")) or name(n), room)
     for h in data.get("hosts", []):
-        runs = [s.get("product") or name(s) for s in services if s.get("hosted_on") == h["id"]]
+        runs = [f"{name(s)} (planned)" if s.get("status") == "planned" else (s.get("product") or name(s))
+                for s in services if s.get("hosted_on") == h["id"]]
         add(h, name(h), h.get("located_in"), runs)
     for i in data.get("instruments", []):
         measures = set(i.get("measures") or [])
