@@ -197,3 +197,54 @@ def layout(view):
         out.routes.append({"edge": e, "points": pts})
 
     return out
+
+
+# ---- Section views: floors as rows, rooms as containers ----------------------
+#
+# A section view is a different kind of view:
+#
+#   view:   {id, title, kind: section}
+#   floors: [{id, title}]                  top to bottom
+#   rooms:  [{id, label, floor}]           left to right within each floor
+#
+# Each floor lays out its own rooms independently (floors don't share columns).
+# Rooms are sized to fit their label for now; devices placed inside them come next.
+
+SECTION_GUTTER = 120   # left margin for floor names
+ROOM_H = 96            # tall enough to hold a row of devices later
+ROOM_GAP = 12
+ROOM_MIN_W = 124
+ROOM_PAD = 20          # inside a floor band, above and below the rooms
+
+
+def section_layout(view):
+    meta = view["view"]
+    if not meta.get("title", "").strip():
+        raise ValueError(f"View {meta.get('id')!r} needs a title stating what it shows.")
+    floor_ids = [f["id"] for f in view["floors"]]
+    rooms_by_floor = {fid: [] for fid in floor_ids}
+    seen = set()
+    for r in view["rooms"]:
+        if r["id"] in seen:
+            raise ValueError(f"Duplicate room {r['id']!r}")
+        seen.add(r["id"])
+        if r["floor"] not in rooms_by_floor:
+            raise ValueError(f"Room {r['id']!r}: unknown floor {r['floor']!r} (expected one of {floor_ids})")
+        rooms_by_floor[r["floor"]].append(r)
+
+    out = Layout(width=0, height=0)
+    out.containers = {}
+    y, widest = MARGIN, 0
+    for f in view["floors"]:
+        h = ROOM_H + 2 * ROOM_PAD
+        out.bands.append({"code": f["title"], "name": "", "y": y, "h": h})
+        x = SECTION_GUTTER
+        for r in rooms_by_floor[f["id"]]:
+            w = max(ROOM_MIN_W, len(r.get("label", r["id"])) * CHAR_W + LABEL_PAD)
+            out.containers[r["id"]] = (x, y + ROOM_PAD, w, ROOM_H)
+            x += w + ROOM_GAP
+        widest = max(widest, x - ROOM_GAP)
+        y += h
+    out.width = widest + MARGIN
+    out.height = y + MARGIN
+    return out

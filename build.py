@@ -20,6 +20,13 @@ CONTENT = ROOT / "content"
 PUBLIC = ROOT / "public"
 SITE_URL = "https://efficientsystems.ca"
 
+# Model exports this site may use. Each is copied in from its owner's repo when
+# that repo sits beside this one; the copy is committed, so the site still
+# builds without it. Only published exports are read, never a raw model.
+EXPORTS = {
+    "house.yaml": ROOT.parent / "house" / "exports" / "public.yaml",
+}
+
 # The only top-level paths in public/ this script may create or replace.
 OWNED = ["index.html", "style.css", "llms.txt", "principles", "legend", "lab"]
 
@@ -85,8 +92,25 @@ def llms_txt(pages):
     return "\n".join(lines) + "\n"
 
 
+def sync_exports():
+    """Copy each owner's public export into content/models/ if it changed."""
+    models = CONTENT / "models"
+    models.mkdir(exist_ok=True)
+    for name, src in EXPORTS.items():
+        dst = models / name
+        if not src.exists():
+            print(f"Using committed content/models/{name} ({src.parent.parent.name} repo not found)")
+            continue
+        text = src.read_text(encoding="utf-8")
+        if not dst.exists() or dst.read_text(encoding="utf-8") != text:
+            dst.write_text(text, encoding="utf-8")
+            print(f"Updated content/models/{name} from {src.parent.parent.name}/exports/{src.name}")
+
+
 def main():
-    # Figures first: generated SVGs land in content/ and are read in below.
+    sync_exports()
+
+    # Figures next: generated SVGs land in content/ and are read in below.
     figures.legend.main()
     figures.lab.main()
 

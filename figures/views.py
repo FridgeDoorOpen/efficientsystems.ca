@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 from figures.grammar import Figure
-from figures.layout import layout
+from figures.layout import layout, section_layout
 
 
 def load(path):
@@ -17,6 +17,8 @@ def load(path):
 
 
 def draw(view):
+    if view["view"].get("kind") == "section":
+        return draw_section(view)
     meta = view["view"]
     lay = layout(view)
     fig = Figure(meta["id"], lay.width, lay.height, title=meta["title"])
@@ -61,3 +63,18 @@ def _edge_label(fig, pts, text):
         fig.note(ax + 6, (ay + by) / 2 + 4, text)
     else:                    # horizontal: just above the line
         fig.note((ax + bx) / 2, ay - 6, text, anchor="middle")
+
+
+def draw_section(view):
+    """A section through a building: floors stacked, rooms as containers."""
+    meta = view["view"]
+    lay = section_layout(view)
+    fig = Figure(meta["id"], lay.width, lay.height, title=meta["title"])
+    for i, b in enumerate(lay.bands):
+        fig.band(0, b["y"], lay.width, b["h"], alt=i % 2 == 1)
+        fig.band_label(12, b["y"] + 24, b["code"], b["name"])
+    for r in view["rooms"]:
+        x, y, w, h = lay.containers[r["id"]]
+        fig.group(x, y, w, h)
+        fig.label(x + 10, y + 20, r.get("label", r["id"]))
+    return fig

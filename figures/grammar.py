@@ -202,7 +202,8 @@ class Figure:
         """The level code and name at the left edge of a band, e.g. L3 / Operations."""
         g = ET.SubElement(self.root, "g", {"class": "f-band-label"})
         ET.SubElement(g, "text", {"x": num(x), "y": num(y)}).text = code
-        ET.SubElement(g, "text", {"class": "f-small", "x": num(x), "y": num(y + 16)}).text = name
+        if name:
+            ET.SubElement(g, "text", {"class": "f-small", "x": num(x), "y": num(y + 16)}).text = name
         return g
 
     def grid(self, x, y, w, h, rows, cols, fill=None):
