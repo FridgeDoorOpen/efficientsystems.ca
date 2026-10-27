@@ -6,7 +6,7 @@ figure: home-shared-context.svg
 caption: "Today, context moves between teams in documents, and every new participant, AI included, adds to the tangle. With shared context, each team reads its own view of one model."
 ---
 
-AI will either multiply a company's entropy or reduce it. The shared context layer decides which.
+AI will transform the way companies operate their assets. Shifting from being document-driven to model-centric.
 
 This site is a working sandbox: principles, the influences behind them, and a concept model for how asset-intensive companies move from today's state to AI-ready operations. It's written for peers, revised in the open, and versioned as the thinking changes.
 
