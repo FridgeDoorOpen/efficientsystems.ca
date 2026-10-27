@@ -32,5 +32,5 @@ Where the thinking on this site comes from. Worth reading in full.
 
 ## Organizations and change
 
-- [How Do Committees Invent? (Conway's law)](https://en.wikipedia.org/wiki/Conway%27s_law), Melvin Conway, 1968
+- [How Do Committees Invent? (Conway's law)](https://www.melconway.com/Home/pdf/committees.pdf), Melvin Conway, 1968
 - [Chesterton's fence](https://en.wikipedia.org/wiki/G._K._Chesterton#Chesterton's_fence), G. K. Chesterton, The Thing, 1929
