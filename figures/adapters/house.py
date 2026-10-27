@@ -183,6 +183,9 @@ def logical(data=None):
     #   estimated         never to be connected, by choice: marked "estimated", no stub
     # Anything with a line going up sits on the top line of the cell; the
     # estimated appliances start a second line below it.
+    #   planned           doesn't exist yet: dashed, after the rest
+    planned = [e for e in equipment if e.get("status") == "planned"]
+    equipment = [e for e in equipment if e.get("status") != "planned"]
     gap = [e for e in equipment if e["id"] not in observed and e.get("connected") != "never"]
     watched = [e for e in equipment if e["id"] in observed]
     chosen = [e for e in equipment if e["id"] not in observed and e.get("connected") == "never"]
@@ -197,6 +200,9 @@ def logical(data=None):
     for k, e in enumerate(chosen):
         nodes.append({"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field",
                       "note": "estimated", "break_before": k == 0})
+    for e in planned:
+        nodes.append({"id": e["id"], "label": name(e), "kind": "asset", "row": "L0", "col": "field",
+                      "status": "planned"})
 
     # Services on the data path, in the column of their host.
     for s in on_path:

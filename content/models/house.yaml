@@ -156,6 +156,23 @@ equipment:
   isa95: L0
   rami: asset
   enterprise_equivalent: Unmetered auxiliary load (estimated)
+- id: irrigation_system
+  located_in: outdoors
+  serves:
+  - outdoors
+  load_basis: estimated
+  status: planned
+  isa95: L0
+  rami: asset
+  enterprise_equivalent: Process equipment (water-consuming)
+- id: irrigation_controller
+  type: controller
+  located_in: outdoors
+  connected: planned
+  status: planned
+  isa95: L1
+  rami: integration
+  enterprise_equivalent: Unit controller / PLC
 - id: theatre_tv
   type: display
   located_in: theatre
