@@ -1,2 +1,4 @@
 __pycache__/
 .venv/
+# Household views: built locally, never committed (see household.py)
+private/

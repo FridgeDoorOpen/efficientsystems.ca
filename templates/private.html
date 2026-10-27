@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>House · household views</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <span class="site-name">House</span>
+    <span>Household views · LAN and tailnet only</span>
+  </header>
+  <main>
+    <article>
+      <h1>The house, in full</h1>
+      <p>The unfiltered views of the house model, for the household. Built from
+      <code>house/exports/household.yaml</code> on {{ built }}. Not published: this page is
+      never served to the internet.</p>
+      {% for fig in figs %}
+      <h2>{{ fig.heading }}</h2>
+      {% include "_figure.html" %}
+      {% endfor %}
+    </article>
+  </main>
+  <footer class="site-footer">
+    <span>Household build</span>
+    <span>{{ built }}</span>
+  </footer>
+</body>
+</html>

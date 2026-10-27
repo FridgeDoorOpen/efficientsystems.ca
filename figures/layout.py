@@ -233,7 +233,7 @@ def layout(view):
 #   links:   [{from, to, kind, tag}]                kind: wired | radio | tie | flow
 #
 # Each floor lays out its own rooms (floors don't share columns). Devices sit
-# inside their room, up to DEVICES_PER_ROW side by side, then wrap. Radio links
+# inside their room, side by side, wrapping when a row would exceed ROOM_MAX_W. Radio links
 # are straight lines (radio goes through floors); every other link is routed
 # with right angles, like cabling, turning at the edge of the target's floor.
 
@@ -245,7 +245,7 @@ ROOM_HEAD = 30         # room label strip at the top of a room
 ROOM_INNER = 10        # padding inside a room around its devices
 DEVICE_H = 24
 DEVICE_GAP = 12
-DEVICES_PER_ROW = 3
+ROOM_MAX_W = 560       # a room's devices wrap onto another row beyond this width
 SMALL_CHAR_W = 6.2     # estimated width of one 11px character
 CAPTION_LINE = 13
 
@@ -279,10 +279,17 @@ def section_layout(view):
             raise ValueError(f"Device {d['id']!r}: unknown room {d['room']!r}")
         devices_by_room[d["room"]].append(d)
 
-    # Size each room from its devices: rows of up to DEVICES_PER_ROW.
+    # Size each room from its devices: rows that wrap by width.
     room_size, device_rows = {}, {}
     for rid, ds in devices_by_room.items():
-        rows = [ds[i:i + DEVICES_PER_ROW] for i in range(0, len(ds), DEVICES_PER_ROW)]
+        rows = []
+        for d in ds:
+            cell = _device_size(d)[1]
+            if rows and sum(_device_size(x)[1] for x in rows[-1]) + DEVICE_GAP * len(rows[-1]) + cell \
+                    + 2 * ROOM_INNER <= ROOM_MAX_W:
+                rows[-1].append(d)
+            else:
+                rows.append([d])
         device_rows[rid] = rows
         label = next(r for rs in rooms_by_floor.values() for r in rs if r["id"] == rid)
         w = max(ROOM_MIN_W, len(label.get("label", rid)) * CHAR_W + LABEL_PAD)
@@ -294,7 +301,7 @@ def section_layout(view):
         room_size[rid] = (w, max(h, 72))
 
     out = Layout(width=0, height=0)
-    out.containers, out.captions, out.room_floor = {}, {}, room_floor
+    out.containers, out.captions, out.room_floor, out.row_bottom = {}, {}, room_floor, {}
     band_of = {}
     y, widest = MARGIN, 0
     for f in view["floors"]:
@@ -314,8 +321,10 @@ def section_layout(view):
             for row in device_rows[r["id"]]:
                 dx = rx + ROOM_INNER
                 row_h = 0
+                row_h = max(_device_size(d)[2] for d in row)
                 for d in row:
                     box_w, cell_w, cell_h = _device_size(d)
+                    out.row_bottom[d["id"]] = dy + row_h      # below this row's captions
                     bx = dx + (cell_w - box_w) / 2
                     out.boxes[d["id"]] = (bx, dy, box_w, DEVICE_H)
                     out.captions[d["id"]] = [(dx + cell_w / 2, dy + DEVICE_H + 4 + CAPTION_LINE * (k + 1) - 3, c)
@@ -346,6 +355,19 @@ def section_layout(view):
             out.routes.append({"edge": link, "points": [p, q],
                                "control": ((p[0] + q[0]) / 2, p[1] + 2 * dip)})
             continue
+        between = [b for i, b in out.boxes.items() if i not in (link["from"], link["to"])
+                   and abs(b[1] - sy) < 0.5 and min(sx, tx) < b[0] < max(sx, tx)]
+        if abs(sy - ty) < 0.5 and between:
+            # Same row, but another device sits between: run over the row (above the
+            # boxes, below the room name), from the edges that face each other.
+            # Over rather than under, because captions sit under the boxes.
+            ey = sy - 6
+            if tx > sx:
+                p, q = (sx + sw - 8, sy), (tx + 8, ty)
+            else:
+                p, q = (sx + 8, sy), (tx + tw - 8, ty)
+            out.routes.append({"edge": link, "points": [p, (p[0], ey), (q[0], ey), q]})
+            continue
         if abs(sy - ty) < 0.5:                       # same device row: side to side
             if tx > sx:
                 pts = [(sx + sw, sy + sh / 2), (tx, ty + th / 2)]
@@ -355,8 +377,16 @@ def section_layout(view):
             down = ty > sy
             lo, hi = max(sx, tx), min(sx + sw, tx + tw)
             if link.get("kind") != "radio" and hi - lo > 8:
-                # The boxes overlap side to side: drop straight between them.
-                mx = (lo + hi) / 2
+                # The boxes overlap side to side: drop straight between them, at the
+                # point nearest the middle that doesn't pass through another device.
+                y0, y1 = (sy + sh, ty) if down else (ty + th, sy)
+                blockers = [b for i, b in out.boxes.items() if i not in (link["from"], link["to"])
+                            and b[1] < y1 and b[1] + b[3] > y0]
+                mid = (lo + hi) / 2
+                candidates = sorted((lo + 6 + k * 2 for k in range(int((hi - lo - 12) / 2) + 1)),
+                                    key=lambda x: abs(x - mid))
+                mx = next((x for x in candidates
+                           if not any(b[0] - 4 <= x <= b[0] + b[2] + 4 for b in blockers)), mid)
                 pts = [(mx, sy + sh if down else sy), (mx, ty if down else ty + th)]
             else:
                 p = (sx + sw / 2, sy + sh if down else sy)

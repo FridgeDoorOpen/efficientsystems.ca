@@ -3,9 +3,11 @@
 Only the paths listed in OWNED are ever written. Everything else in
 public/ (teaching/, robots.txt) is left alone.
 
-Run:  uv run build.py
+Run:  uv run build.py              (the public site, into public/)
+      uv run build.py --household  (also the household views, into private/)
 """
 import re
+import sys
 from pathlib import Path
 
 import markdown
@@ -146,6 +148,10 @@ def main():
     write("style.css", (ROOT / "static" / "style.css").read_text(encoding="utf-8"))
     write("llms.txt", llms_txt(pages))
     print(f"Built {len(pages)} page(s) into public/")
+
+    if "--household" in sys.argv:
+        import household
+        household.main()
 
 
 if __name__ == "__main__":

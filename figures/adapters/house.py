@@ -14,7 +14,7 @@ DEFAULT_WIRED = "ethernet"   # untagged in the figure; the legend says so
 RADIO = {"zigbee", "wifi"}
 TYPE_LABEL = {"moca_adapter": "MoCA adapter", "switch": "Switch",
               "access_point": "Access point", "isp_connection": "Internet uplink"}
-MEASURES_LABEL = [({"temperature", "humidity"}, "Climate"), ({"moisture"}, "Leak")]
+MEASURES_LABEL = [({"temperature", "humidity"}, "Climate"), ({"moisture"}, "Leak"), ({"open_closed"}, "Door")]
 
 INTERNET = "internet"   # a container in the Outside band for things beyond the house
 
