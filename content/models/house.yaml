@@ -95,7 +95,7 @@ equipment:
   rami: asset
   enterprise_equivalent: Process equipment (e.g. compressor unit)
 - id: garage_heater
-  type: space_heater
+  type: unit_heater
   located_in: garage
   serves:
   - garage
