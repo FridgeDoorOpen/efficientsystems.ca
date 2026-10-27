@@ -1,7 +1,7 @@
 ---
-title: Lineage
-description: The documents, standards and ideas the principles on this site come from.
-updated: 2026-10-26
+title: Influences
+description: The documents, standards and ideas that shaped the principles on this site.
+updated: 2026-10-27
 ---
 
 Where the thinking on this site comes from. Worth reading in full.
