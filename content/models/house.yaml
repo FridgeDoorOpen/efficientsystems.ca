@@ -167,7 +167,7 @@ equipment:
   enterprise_equivalent: Process equipment (water-consuming)
 - id: irrigation_controller
   type: controller
-  located_in: outdoors
+  located_in: garage
   connected: planned
   status: planned
   isa95: L1
