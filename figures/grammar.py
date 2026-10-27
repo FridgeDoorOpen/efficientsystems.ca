@@ -212,6 +212,10 @@ class Figure:
         """One ISA-95 level band. Alternate bands with alt=True."""
         return self._add("rect", "f-band-alt" if alt else "f-band", x=x, y=y, width=w, height=h)
 
+    def ellipse(self, cx, cy, rx, ry, cls="f-ring-core"):
+        """An ellipse with one of the ring classes (f-ring-core, f-ring-mid, f-ring-out)."""
+        return self._add("ellipse", cls, cx=cx, cy=cy, rx=rx, ry=ry)
+
     def band_label(self, x, y, code, name):
         """The level code and name at the left edge of a band, e.g. L3 / Operations."""
         g = ET.SubElement(self.root, "g", {"class": "f-band-label"})

@@ -12,6 +12,7 @@ import markdown
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+import figures.home
 import figures.lab
 import figures.legend
 
@@ -118,6 +119,7 @@ def main():
 
     # Figures next: generated SVGs land in content/ and are read in below.
     figures.legend.main()
+    figures.home.main()
     figures.lab.main()
 
     pages = []

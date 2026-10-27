@@ -1,9 +1,9 @@
 ---
 title: Industrial context, operations, and AI
 description: Working notes on how energy operators can make AI reduce complexity instead of adding to it.
-updated: 2026-10-07
-figure: system-of-systems.svg
-caption: Any asset-intensive business as a system of systems. One objective core that can be described once; people, process and technology around it, where different interpretations are a strength; and a world outside that exchanges data but takes no orders. The shapes follow the legend.
+updated: 2026-10-27
+figure: home-shared-context.svg
+caption: "Today, context moves between teams in documents, and every new participant, AI included, adds to the tangle. With shared context, each team reads its own view of one model."
 ---
 
 AI will either multiply a company's entropy or reduce it. The shared context layer decides which.
