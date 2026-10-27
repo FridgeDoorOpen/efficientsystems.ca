@@ -11,8 +11,11 @@ Rules
   level is drawn even when empty, because an empty level is information.
 - Columns are named by each view, left to right in the order given.
 - Nodes in the same cell sit side by side, in the order they are listed.
-  A column is as wide as its fullest cell; a band is as tall as one node
-  plus padding (empty bands are shorter).
+  A cell wider than CELL_MAX_W wraps onto further lines within its band,
+  and a node with `break_before: true` always starts a new line. A column
+  is as wide as its widest line; a band is as tall as its most-wrapped cell
+  (empty bands are shorter). Lines going up should start from the top line
+  of a cell, so adapters list those nodes first.
 - Box widths are estimated from label length (about 7 px per character),
   since Python can't measure fonts.
 - Lines between rows leave the top or bottom of a box and enter the other
@@ -47,6 +50,8 @@ CELL_PAD = 24       # left and right inside each column
 BAND_PAD = 24       # above and below nodes in a band
 EMPTY_BAND = 48     # height of a band with no nodes
 MIN_COL = 140
+CELL_MAX_W = 480    # a cell wider than this wraps onto another line within its band
+WRAP_GAP = 28       # between wrapped lines (room for a note above the lower boxes)
 CHAR_W = 7.2        # estimated width of one label character at 13px
 LABEL_PAD = 24      # text inset inside a box
 
@@ -108,9 +113,25 @@ def layout(view):
     for n in nodes:
         cells.setdefault((n["row"], n["col"]), []).append(n)
 
-    def cell_width(row, col):
-        ns = cells.get((row, col), [])
+    def line_width(ns):
         return sum(node_width(n) for n in ns) + NODE_GAP * max(0, len(ns) - 1)
+
+    def cell_lines(row, col):
+        """Split a cell into lines: forced by break_before, or when too wide."""
+        lines = []
+        for n in cells.get((row, col), []):
+            if not lines or n.get("break_before") or line_width(lines[-1] + [n]) > CELL_MAX_W:
+                lines.append([n])
+            else:
+                lines[-1].append(n)
+        return lines
+
+    def cell_width(row, col):
+        return max((line_width(l) for l in cell_lines(row, col)), default=0)
+
+    def cell_height(row, col):
+        k = len(cell_lines(row, col))
+        return k * NODE_H + max(0, k - 1) * WRAP_GAP
 
     out = Layout(width=0, height=0)
 
@@ -126,23 +147,25 @@ def layout(view):
     # Bands: one per level, shorter when empty.
     y = HEADER
     for code, name in frame:
-        used = any(r == code for r, _ in cells)
-        h = NODE_H + 2 * BAND_PAD if used else EMPTY_BAND
+        used = [c for r, c in cells if r == code]
+        h = max(cell_height(code, c) for c in used) + 2 * BAND_PAD if used else EMPTY_BAND
         out.bands.append({"code": code, "name": name, "y": y, "h": h})
         y += h
     out.height = y + MARGIN
     band_at = {b["code"]: b for b in out.bands}
     row_index = {code: i for i, (code, _) in enumerate(frame)}
 
-    # Boxes: centred in their cell, side by side.
-    for (row, col), ns in cells.items():
+    # Boxes: each line of a cell centred in its column; the lines centred in the band.
+    for (row, col) in cells:
         c, b = col_at[col], band_at[row]
-        bx = c["x"] + (c["w"] - cell_width(row, col)) / 2
-        by = b["y"] + (b["h"] - NODE_H) / 2
-        for n in ns:
-            w = node_width(n)
-            out.boxes[n["id"]] = (bx, by, w, NODE_H)
-            bx += w + NODE_GAP
+        by = b["y"] + (b["h"] - cell_height(row, col)) / 2
+        for line in cell_lines(row, col):
+            bx = c["x"] + (c["w"] - line_width(line)) / 2
+            for n in line:
+                w = node_width(n)
+                out.boxes[n["id"]] = (bx, by, w, NODE_H)
+                bx += w + NODE_GAP
+            by += NODE_H + WRAP_GAP
 
     # Which side of each box every edge uses.
     by_id = {n["id"]: n for n in nodes}

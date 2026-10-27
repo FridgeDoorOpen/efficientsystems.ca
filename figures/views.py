@@ -48,7 +48,11 @@ def draw(view):
             _edge_label(fig, pts, e["label"], halo)
 
     # Unobserved things: a short path upward that stops (the legend's "no path").
+    # Other nodes may carry a short note centred above the box (e.g. "estimated").
     for n in view["nodes"]:
+        if n.get("note"):
+            x, y, w, h = lay.boxes[n["id"]]
+            fig.text(x + w / 2, y - 7, n["note"], "f-small f-muted" + halo(y - 7), anchor="middle")
         if n.get("no_path") == "up":
             x, y, w, h = lay.boxes[n["id"]]
             cx = x + w / 2
