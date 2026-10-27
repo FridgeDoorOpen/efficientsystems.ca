@@ -347,7 +347,7 @@ services:
   enterprise_equivalent: Corporate DNS filtering
 - id: esc_house_site
   label: ESC house page
-  product: Static site (Python build), subdomain behind Cloudflare Access
+  product: House pages on efficientsystems.ca, built from the public export
   hosted_on: nas
   status: planned
   isa95: L4

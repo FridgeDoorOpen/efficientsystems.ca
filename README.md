@@ -19,6 +19,14 @@ Static site for Efficient Systems Canada, self-hosted on the NAS (Nginx behind a
 
 `uv run build.py` writes only the paths listed in `OWNED` inside `public/`. Teaching tools and `robots.txt` are never touched.
 
+## Household views (private)
+
+`uv run build.py --household` also draws the household views into `private/`, from
+`../house/exports/household.yaml`. `private/` is git-ignored and is not served by the public
+site. `./scripts/deploy-household.sh` rebuilds it and copies it to the NAS, where its own
+Nginx container serves it on port 8088: the home network and tailnet only, never the internet.
+Don't add it to the Cloudflare Tunnel, and don't forward port 8088 on the router.
+
 ## Search engines
 
 `robots.txt` asks crawlers to skip `/teaching/`, and each teaching page carries a `noindex` tag.
