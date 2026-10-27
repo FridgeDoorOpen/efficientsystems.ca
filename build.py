@@ -32,7 +32,7 @@ EXPORTS = {
 WIDE_FIGURE = 800
 
 # The only top-level paths in public/ this script may create or replace.
-OWNED = ["index.html", "style.css", "llms.txt", "principles", "legend", "lab"]
+OWNED = ["index.html", "style.css", "llms.txt", "principles", "lineage", "legend", "lab"]
 
 env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=True)
 
@@ -125,6 +125,7 @@ def main():
     # Single pages
     pages.append(render("page.html", "index.html", read_page(CONTENT / "home.md")))
     pages.append(render("page.html", "legend/index.html", read_page(CONTENT / "legend.md")))
+    pages.append(render("page.html", "lineage/index.html", read_page(CONTENT / "lineage.md")))
     pages.append(render("page.html", "lab/index.html", read_page(CONTENT / "lab.md")))
 
     # Principles: one page each, ordered by their number

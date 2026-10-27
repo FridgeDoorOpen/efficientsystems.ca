@@ -10,4 +10,4 @@ AI will either multiply a company's entropy or reduce it. The shared context lay
 
 This site is a working sandbox: principles, lineage, and a concept model for how asset-intensive companies move from today's state to AI-ready operations. It's written for peers, revised in the open, and versioned as the thinking changes.
 
-Start with the [principles](/principles/). The [legend](/legend/) explains how to read the diagrams. Lineage and the context map are coming next.
+Start with the [principles](/principles/). [Lineage](/lineage/) lists where they come from, and the [legend](/legend/) explains how to read the diagrams. The context map is coming next.
