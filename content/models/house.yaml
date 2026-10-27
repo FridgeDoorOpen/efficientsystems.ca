@@ -336,13 +336,6 @@ services:
   isa95: L4
   rami: business
   enterprise_equivalent: External reporting / stakeholder portal (one-way, DMZ)
-segments:
-- id: main_lan
-  status: active
-  enterprise_equivalent: Business / enterprise network zone
-- id: iot_vlan
-  status: planned
-  enterprise_equivalent: OT network zone (segmented from IT)
 nodes:
 - id: internet_uplink
   type: isp_connection
